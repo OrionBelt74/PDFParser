@@ -1,42 +1,314 @@
 ﻿  PDFDocument.cpp
-  PDFObject.cpp
-C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(4,10): error C1083: Cannot open include file: 'std::vector': No such file or directory
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(17,1): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(17,9): error C2146: syntax error: missing ';' before identifier '_Type'
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(20,35): error C2143: syntax error: missing ';' before '{'
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(20,35): error C2447: '{': missing function header (old-style formal list?)
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(21,1): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(21,1): error C2086: 'int Private': redefinition
-      C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(17,1):
-      see declaration of 'Private'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(34,46): error C2059: syntax error: ')'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(69,76): error C2572: 'PDFDocument::SearchForENDOBJ': redefinition of default argument: parameter 1
+      C:\Workspace\PDFParser\PDFReader\inc\PDFDocument.hpp(23,9):
+      see declaration of 'PDFDocument::SearchForENDOBJ'
   
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(21,9): error C2146: syntax error: missing ';' before identifier 'Delimiters'
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(21,34): error C2143: syntax error: missing ';' before '{'
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(21,34): error C2447: '{': missing function header (old-style formal list?)
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(114,5): error C2065: 'Dim': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(114,9): error C2146: syntax error: missing ';' before identifier 'patternAscii'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(114,9): error C2065: 'patternAscii': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(114,22): error C2146: syntax error: missing ';' before identifier 'As'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(114,22): error C2065: 'As': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(114,25): error C2146: syntax error: missing ';' before identifier 'New'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(114,25): error C2065: 'New': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(114,29): error C2146: syntax error: missing ';' before identifier 'List'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(114,34): error C2065: 'Of': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(114,37): error C2146: syntax error: missing ')' before identifier 'Integer'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(114,29): error C3861: 'List': identifier not found
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(114,37): error C2146: syntax error: missing ';' before identifier 'Integer'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(114,44): error C2059: syntax error: ')'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(114,37): error C2065: 'Integer': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(115,9): error C2146: syntax error: missing ';' before identifier 'Dim'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(115,9): error C2065: 'Dim': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(115,13): error C2146: syntax error: missing ';' before identifier 'L'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(115,13): error C2065: 'L': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(115,15): error C2146: syntax error: missing ';' before identifier 'As'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(115,15): error C2065: 'As': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(115,18): error C2146: syntax error: missing ';' before identifier 'Integer'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(115,18): error C2065: 'Integer': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(115,28): error C3861: 'Len': identifier not found
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(117,9): error C2146: syntax error: missing ';' before identifier 'For'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(117,9): error C2065: 'For': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(117,13): error C2146: syntax error: missing ';' before identifier 'n'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(117,13): error C2065: 'n': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(117,19): error C2146: syntax error: missing ';' before identifier 'To'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(117,19): error C2065: 'To': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(117,22): error C2146: syntax error: missing ';' before identifier 'L'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(117,22): error C2065: 'L': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(118,9): error C2146: syntax error: missing ';' before identifier 'patternAscii'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(118,9): error C2065: 'patternAscii': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(118,43): error C2065: 'n': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(118,30): error C3861: 'Mid': identifier not found
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(118,26): error C3861: 'Asc': identifier not found
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(119,9): error C2146: syntax error: missing ';' before identifier 'Next'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(119,9): error C2065: 'Next': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(121,9): error C2146: syntax error: missing ';' before identifier 'Dim'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(121,9): error C2065: 'Dim': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(121,13): error C2146: syntax error: missing ';' before identifier 'found'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(121,13): error C2065: 'found': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(121,19): error C2146: syntax error: missing ';' before identifier 'As'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(121,19): error C2065: 'As': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(121,22): error C2146: syntax error: missing ';' before identifier 'Boolean'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(121,22): error C2065: 'Boolean': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(121,32): error C2065: 'False': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(122,9): error C2146: syntax error: missing ';' before identifier 'If'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(122,9): error C2065: 'If': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(122,12): error C2146: syntax error: missing ';' before identifier 'direction'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(122,49): error C2146: syntax error: missing ';' before identifier 'Then'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(122,49): error C2065: 'Then': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(123,9): error C2146: syntax error: missing ';' before identifier 'currentPos'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(123,23): error C2065: 'L': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(124,9): error C2146: syntax error: missing ';' before identifier 'End'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(124,9): error C2065: 'End': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(124,13): error C2146: syntax error: missing ';' before identifier 'If'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(124,13): error C2065: 'If': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(126,9): error C2146: syntax error: missing ';' before identifier 'While'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(126,9): error C2065: 'While': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(126,15): error C2146: syntax error: missing ';' before identifier 'Not'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(126,15): error C2065: 'Not': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(126,19): error C2146: syntax error: missing ';' before identifier 'found'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(126,19): error C2065: 'found': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(126,25): error C2146: syntax error: missing ';' before identifier 'And'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(126,25): error C2065: 'And': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(126,29): error C2146: syntax error: missing ';' before identifier 'currentPos'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(126,40): error C2446: '>': no conversion from 'int' to 'int *'
+      C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(126,42):
+      Conversion from integral type to pointer type requires reinterpret_cast, C-style cast or parenthesized function-style cast
+  
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(127,9): error C2146: syntax error: missing ';' before identifier 'found'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(127,9): error C2065: 'found': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(127,17): error C2065: 'True': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(128,9): error C2146: syntax error: missing ';' before identifier 'For'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(128,9): error C2065: 'For': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(128,13): error C2146: syntax error: missing ';' before identifier 'n'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(128,13): error C2065: 'n': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(128,19): error C2146: syntax error: missing ';' before identifier 'To'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(128,19): error C2065: 'To': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(128,22): error C2146: syntax error: missing ';' before identifier 'L'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(128,22): error C2065: 'L': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(129,9): error C2146: syntax error: missing ';' before identifier 'found'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(129,9): error C2065: 'found': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(129,17): error C2065: 'found': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(129,23): error C2146: syntax error: missing ';' before identifier 'And'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(129,47): error C2065: 'n': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(129,27): error C3861: 'buffer': identifier not found
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(129,65): error C2065: 'n': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(129,52): error C3861: 'patternAscii': identifier not found
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(129,23): error C3861: 'And': identifier not found
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(130,9): error C2146: syntax error: missing ';' before identifier 'Next'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(130,9): error C2065: 'Next': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(131,9): error C2146: syntax error: missing ';' before identifier 'If'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(131,9): error C2065: 'If': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(131,12): error C2146: syntax error: missing ';' before identifier 'direction'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(131,49): error C2146: syntax error: missing ';' before identifier 'Then'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(131,49): error C2065: 'Then': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(131,54): error C2146: syntax error: missing ';' before identifier 'currentPos'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(131,70): error C2146: syntax error: missing ';' before identifier 'Else'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(131,70): error C2065: 'Else': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(131,75): error C2146: syntax error: missing ';' before identifier 'currentPos'
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(131,75): error C1003: error count exceeds 100; stopping compilation
+  PDFObject.cpp
+C:\Workspace\PDFParser\PDFReader\inc\PDFDefinitions.hpp(43,1): error C2143: syntax error: missing ';' before 'const'
+  (compiling source file '../src/PDFObject.cpp')
+  
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(8,12): error C2065: 'ObjectType': undeclared identifier
 C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(22,1): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(22,8): error C2146: syntax error: missing ';' before identifier 'IndirectReference'
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(51,1): error C2001: newline in constant
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(51,1): error C2015: too many characters in constant
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(92,1): error C2001: newline in constant
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(92,1): error C2015: too many characters in constant
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(93,1): error C2001: newline in constant
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(94,1): error C2001: newline in constant
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(94,1): error C2015: too many characters in constant
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(95,1): error C2001: newline in constant
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(95,1): error C2015: too many characters in constant
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(97,1): error C2001: newline in constant
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(97,1): error C2015: too many characters in constant
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(99,1): error C2001: newline in constant
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(99,1): error C2015: too many characters in constant
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(100,1): error C2001: newline in constant
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(100,1): error C2015: too many characters in constant
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(101,1): error C2001: newline in constant
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(101,1): error C2015: too many characters in constant
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(103,1): error C2001: newline in constant
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(103,1): error C2015: too many characters in constant
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(104,1): error C2001: newline in constant
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(261,1): error C2001: newline in constant
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(261,1): error C2015: too many characters in constant
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(314,1): error C2001: newline in constant
-C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(314,1): error C2015: too many characters in constant
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(22,10): error C2146: syntax error: missing ';' before identifier 'Type'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(40,1): error C2143: syntax error: missing ';' before '{'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(40,1): error C2447: '{': missing function header (old-style formal list?)
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(62,44): error C2440: 'initializing': cannot convert from '_Ty' to 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(62,44): error C2440:         with
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(62,44): error C2440:         [
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(62,44): error C2440:             _Ty=char
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(62,44): error C2440:         ]
+      C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(62,44):
+      'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string': no overloaded function could convert all the argument types
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xstring(749,5):
+          could be 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(const _Elem *const )'
+          with
+          [
+              _Elem=char
+          ]
+              C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(62,44):
+              'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(const _Elem *const )': cannot convert argument 1 from '_Ty' to 'const _Elem *const '
+          with
+          [
+              _Elem=char
+          ]
+          and
+          [
+              _Ty=char
+          ]
+          and
+          [
+              _Elem=char
+          ]
+                  C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(62,44):
+                  Conversion from integral type to pointer type requires reinterpret_cast, C-style cast or parenthesized function-style cast
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xstring(1327,5):
+          or       'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(std::initializer_list<_Elem>,const _Alloc &)'
+          with
+          [
+              _Elem=char,
+              _Alloc=std::allocator<char>
+          ]
+              C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(62,44):
+              'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(std::initializer_list<_Elem>,const _Alloc &)': cannot convert argument 1 from '_Ty' to 'std::initializer_list<_Elem>'
+          with
+          [
+              _Elem=char,
+              _Alloc=std::allocator<char>
+          ]
+          and
+          [
+              _Ty=char
+          ]
+          and
+          [
+              _Elem=char
+          ]
+                  C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(62,44):
+                  Conversion requires a second user-defined-conversion operator or constructor
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xstring(779,5):
+          or       'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(_Iter,_Iter,const _Alloc &)'
+          with
+          [
+              _Alloc=std::allocator<char>
+          ]
+          C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(62,44):
+          while trying to match the argument list '(_Ty)'
+          with
+          [
+              _Ty=char
+          ]
+  
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(67,33): warning C4267: 'argument': conversion from 'size_t' to '_Ty', possible loss of data
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(67,33): warning C4267:         with
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(67,33): warning C4267:         [
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(67,33): warning C4267:             _Ty=int
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(67,33): warning C4267:         ]
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(71,46): error C2440: 'initializing': cannot convert from '_Ty' to 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(71,46): error C2440:         with
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(71,46): error C2440:         [
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(71,46): error C2440:             _Ty=char
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(71,46): error C2440:         ]
+      C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(71,46):
+      'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string': no overloaded function could convert all the argument types
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xstring(749,5):
+          could be 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(const _Elem *const )'
+          with
+          [
+              _Elem=char
+          ]
+              C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(71,46):
+              'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(const _Elem *const )': cannot convert argument 1 from '_Ty' to 'const _Elem *const '
+          with
+          [
+              _Elem=char
+          ]
+          and
+          [
+              _Ty=char
+          ]
+          and
+          [
+              _Elem=char
+          ]
+                  C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(71,46):
+                  Conversion from integral type to pointer type requires reinterpret_cast, C-style cast or parenthesized function-style cast
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xstring(1327,5):
+          or       'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(std::initializer_list<_Elem>,const _Alloc &)'
+          with
+          [
+              _Elem=char,
+              _Alloc=std::allocator<char>
+          ]
+              C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(71,46):
+              'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(std::initializer_list<_Elem>,const _Alloc &)': cannot convert argument 1 from '_Ty' to 'std::initializer_list<_Elem>'
+          with
+          [
+              _Elem=char,
+              _Alloc=std::allocator<char>
+          ]
+          and
+          [
+              _Ty=char
+          ]
+          and
+          [
+              _Elem=char
+          ]
+                  C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(71,46):
+                  Conversion requires a second user-defined-conversion operator or constructor
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xstring(779,5):
+          or       'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(_Iter,_Iter,const _Alloc &)'
+          with
+          [
+              _Alloc=std::allocator<char>
+          ]
+          C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(71,46):
+          while trying to match the argument list '(_Ty)'
+          with
+          [
+              _Ty=char
+          ]
+  
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(76,33): warning C4267: 'argument': conversion from 'size_t' to '_Ty', possible loss of data
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(76,33): warning C4267:         with
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(76,33): warning C4267:         [
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(76,33): warning C4267:             _Ty=int
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(76,33): warning C4267:         ]
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(85,30): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(124,9): error C2146: syntax error: missing ';' before identifier 'Dim'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(124,9): error C2065: 'Dim': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(123,13): error C2146: syntax error: missing ';' before identifier 'm'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(123,13): error C2065: 'm': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(123,15): error C2146: syntax error: missing ';' before identifier 'As'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(123,15): error C2065: 'As': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(123,18): error C2146: syntax error: missing ';' before identifier 'Match'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(123,18): error C2065: 'Match': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(125,9): error C2146: syntax error: missing ';' before identifier 'Dim'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(125,9): error C2065: 'Dim': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(125,13): error C2146: syntax error: missing ';' before identifier 'res'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(125,13): error C2065: 'res': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(125,17): error C2146: syntax error: missing ';' before identifier 'As'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(125,17): error C2065: 'As': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(125,20): error C2146: syntax error: missing ';' before identifier 'New'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(125,20): error C2065: 'New': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(125,24): error C2146: syntax error: missing ';' before identifier 'List'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(125,29): error C2065: 'Of': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(125,32): error C2146: syntax error: missing ')' before identifier 'KeyValuePair'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(125,24): error C3861: 'List': identifier not found
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(125,32): error C2146: syntax error: missing ';' before identifier 'KeyValuePair'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(125,45): error C2065: 'Of': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(125,48): error C2146: syntax error: missing ')' before identifier 'String'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(125,32): error C3861: 'KeyValuePair': identifier not found
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(125,48): error C2146: syntax error: missing ';' before identifier 'String'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(125,48): error C2065: 'String': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(125,56): error C2065: 'String': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(125,62): error C2059: syntax error: ')'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(125,63): error C2059: syntax error: ')'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(126,9): error C2146: syntax error: missing ';' before identifier 'While'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(126,9): error C2065: 'While': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(126,15): error C2146: syntax error: missing ';' before identifier 'sTemp'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(126,23): error C2059: syntax error: '>'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(191,1): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(191,9): error C2146: syntax error: missing ';' before identifier 'Function'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(267,1): error C2143: syntax error: missing ';' before '{'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(267,1): error C2447: '{': missing function header (old-style formal list?)
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(325,13): error C2065: '_dict': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(326,20): error C2065: '_dict': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(328,13): error C2065: 'Return': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(328,20): error C2143: syntax error: missing ';' before 'constant'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(330,37): error C2838: 'PDF_Array': illegal qualified name in member declaration
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(330,37): error C2065: 'PDF_Array': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(356,32): error C2838: 'PDF_Dictionary': illegal qualified name in member declaration
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(356,32): error C2065: 'PDF_Dictionary': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(358,26): error C2065: '_dict': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(358,19): error C3531: 'dKey': a symbol whose type contains 'auto' must have an initializer
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(358,24): error C2143: syntax error: missing ';' before ':'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(358,31): error C2143: syntax error: missing ';' before ')'
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(368,32): error C2838: 'PDF_Dictionary': illegal qualified name in member declaration
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(368,32): error C2065: 'PDF_Dictionary': undeclared identifier
+C:\Workspace\PDFParser\PDFReader\src\PDFObject.cpp(370,16): error C2065: '_dict': undeclared identifier
   Generating Code...

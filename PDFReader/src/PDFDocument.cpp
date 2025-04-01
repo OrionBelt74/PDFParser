@@ -1,7 +1,7 @@
 #include "../inc/PDFDocument.hpp"
 
 #include <cstdint>
-#include <std::vector>
+#include <vector>
 
 PDFDocument::PDFDocument()
 {
@@ -109,674 +109,777 @@ void PDFDocument::MoveToPreviousEOL(uint8_t* Buff, int* currentPos)
     *currentPos = index;
 }
 
+
 bool PDFDocument::SearchPattern(uint8_t* Buff, std::string Pattern, int* currentPos, SearchDirection direction)
 {
-    Dim patternAscii As New List(Of Integer)
-        Dim L As Integer = Len(Pattern)
+    std::vector<int> patternAscii;
+    int L = (int)Pattern.length();
 
-        For n = 1 To L
-        patternAscii.Add(Asc(Mid(Pattern, n, 1)))
-        Next
-
-        Dim found As Boolean = False
-        If direction = SearchDirection.Backward Then
-        currentPos -= L
-        End If
-
-        While Not found And currentPos > -1
-        found = True
-        For n = 0 To L - 1
-        found = found And(buffer(currentPos + n) = patternAscii(n))
-        Next
-        If direction = SearchDirection.Backward Then currentPos -= 1 Else currentPos += 1
-        End While
-
-        'move back one position to let 'currentPos' at the start of the pattern
-        If direction = SearchDirection.Backward Then currentPos += 1 Else currentPos -= 1
-        Return found
-        End Function
-
-        bool PDFDocument::SearchPattern(std::string& Pattern, SearchDirection searchDirection)
+    for (int n = 0; n < L; n++)
     {
-        Dim patternAscii As New List(Of Integer)
-        Dim L As Long = Len(Pattern)
-        Dim currentByte As Byte
+        patternAscii.push_back(int((char)Pattern[n]));
+    }
 
-        For n = 1 To L
-        patternAscii.Add(Asc(Mid(Pattern, n, 1)))
-        Next
+    bool found = false;
+    if (direction == SearchDirection::BACKWARDS)
+        currentPos -= L;
 
-        Dim found As Boolean = False
-        If SearchDirection = SearchDirection.Backward Then
-        PDFStream.Position -= L
 
-        While Not found And PDFStream.Position > -1
-        found = True
-        For n = 0 To L - 1
-        currentByte = PDFStream.ReadByte
-        found = found And(currentByte = patternAscii(n))
-        Next
-        PDFStream.Position -= L + 1
-        End While
+    while (!found && currentPos > -1)
+    {
+        found = true;
+        for (int n = 0; n < L; n++)
+            found = found && (buffer[currentPos + n] == patternAscii[n]);
 
-        Else
-        While Not found And PDFStream.Position < Size
-        found = True
-        For n = 0 To L - 1
-        currentByte = PDFStream.ReadByte
-        found = found And(currentByte = patternAscii(n))
-        Next
-        PDFStream.Position -= L - 1
-        End While
-        If found Then PDFStream.Position -= 1   'align with the first character
-        End If
-        Return found
+        if (direction == SearchDirection::BACKWARDS)
+            currentPos--;
+        else
+            currentPos++;
 
-        End Function
+        //move back one position to let 'currentPos' at the start of the pattern
+        if (direction == SearchDirection::BACKWARDS)
+            currentPos++;
+        else
+            currentPos--;
+        return found;
+    }
 }
 
-    Private Function ReadDictionary(buffer() As Byte, startPos As Integer, buffersize As Integer) As String
-    Dim found As Boolean = False
-    Dim pos As Integer = startPos
-    While(Not found And pos < buffersize)
-    found = (buffer(pos) = Asc("<")) And(buffer(pos + 1) = Asc("<"))
-    pos += 1
-    End While
-    If found Then
-    Dim markerCount As Integer = 1
-    Dim startdict As Integer = pos - 1
-    Dim enddict As Integer
-    found = False
-    While(Not found And pos < buffersize)
-    If(buffer(pos) = Asc("<")) And(buffer(pos + 1) = Asc("<")) Then markerCount += 1
-    If(buffer(pos) = Asc(">")) And(buffer(pos + 1) = Asc(">")) Then markerCount -= 1
-    found = (markerCount = 0)
-    pos += 1
-    End While
-    If found Then
-    enddict = pos + 1
-    Dim Str As String = System.Text.Encoding.ASCII.GetString(buffer, startdict, enddict - startdict)
-    Return Str
-    Else
-    Return ""
-    End If
-
-    Else
-    Return ""
-    End If
-
-    End Function
-
-
-
-    Private Function ReadDictionary(startPos As Integer) As String
-    Dim found As Boolean = False
-    PDFStream.Seek(startPos, SeekOrigin.Begin)
-    Dim byte1 As Byte
-    Dim byte2 As Byte
-    While(Not found And PDFStream.Position < Size)
-    byte1 = PDFStream.ReadByte
-    byte2 = PDFStream.ReadByte
-    found = (byte1 = Asc("<")) And(byte2 = Asc("<"))
-    PDFStream.Position -= 1
-    End While
-    If found Then
-    Dim markerCount As Integer = 1
-    Dim startdict As Integer = PDFStream.Position - 1  'Position the stream in the first ' < ' symbol
-    Dim enddict As Integer
-    found = False
-    While(Not found And PDFStream.Position < Size)
-    byte1 = PDFStream.ReadByte
-    byte2 = PDFStream.ReadByte
-    If(byte1 = Asc("<")) And(byte2 = Asc("<")) Then
-    markerCount += 1
-    ElseIf(byte1 = Asc(">")) And(byte2 = Asc(">")) Then
-    markerCount -= 1
-    Else
-    PDFStream.Position -= 1     'if no pattern is found, step one back
-    End If
-    found = (markerCount = 0)
-    End While
-    If found Then
-
-    enddict = PDFStream.Position - 1
-    PDFStream.Position = startdict
-    Dim length As Integer = enddict - startdict + 1
-    Dim Buffer(length - 1) As Byte
-    PDFStream.Read(Buffer, 0, length)
-    Dim Str As String = System.Text.Encoding.ASCII.GetString(Buffer, 0, length)
-    Return Str
-    Else
-    Return ""
-    End If
-
-    Else
-    Return ""
-    End If
-
-    End Function
-
-
-    Private Sub ReadStream(startPos As Integer, ByRef DictObj As PDFObject, ByRef StreamStartPos As Integer, ByRef StreamEndPos As Integer)
-    Dim found As Boolean = False
-    PDFStream.Seek(startPos, SeekOrigin.Begin)
-    Dim byte1 As Byte
-    Dim byte2 As Byte
-    While(Not found And PDFStream.Position < Size)
-    byte1 = PDFStream.ReadByte
-    byte2 = PDFStream.ReadByte
-    found = (byte1 = Asc("<")) And(byte2 = Asc("<"))
-    PDFStream.Position -= 1
-    End While
-    If found Then
-    Dim markerCount As Integer = 1
-    Dim startdict As Integer = PDFStream.Position - 1
-    Dim enddict As Integer
-    found = False
-    While(Not found And PDFStream.Position < Size)
-    byte1 = PDFStream.ReadByte
-    byte2 = PDFStream.ReadByte
-    If(byte1 = Asc("<")) And(byte2 = Asc("<")) Then markerCount += 1
-    If(byte1 = Asc(">")) And(byte2 = Asc(">")) Then markerCount -= 1
-    found = (markerCount = 0)
-    PDFStream.Position -= 1
-    End While
-    If found Then
-    enddict = PDFStream.Position + 1
-    PDFStream.Position = startdict
-    Dim Buffer(enddict - startdict) As Byte
-    PDFStream.Read(Buffer, 0, enddict - startdict)
-    Dim Str As String = System.Text.Encoding.ASCII.GetString(Buffer, 0, enddict - startdict)
-    DictObj = New PDFObject
-    DictObj.Value = Str
-
-    'Move to the beginning of the stream
-    SearchPattern(PDF_STREAM, SearchDirection.Forward)
-    PDFStream.Position += Len(PDF_STREAM)
-    'stream must be followed either by a LF or a CR LF --> NO CR alone!
-    byte1 = PDFStream.ReadByte
-    If byte1 = 10 Then
-    StreamStartPos = PDFStream.Position
-    ElseIf byte1 = 13 Then
-    byte2 = PDFStream.ReadByte
-    If byte2 = 10 Then
-    StreamStartPos = PDFStream.Position
-    Else
-    MsgBox("ERROR!!! stream not followed by either LF or CR LF")
-    End If
-    End If
-    SearchPattern(PDF_ENDSTREAM, SearchDirection.Forward)
-    StreamEndPos = PDFStream.Position
-    Else
-    DictObj = Nothing
-    StreamStartPos = -1
-    StreamEndPos = -1
-    End If
-
-    Else
-    DictObj = Nothing
-    StreamStartPos = -1
-    StreamEndPos = -1
-    End If
-
-    End Sub
-    Private Function ReadReferenceTable(ByRef Trailer As PDFTrailer) As PDFCrossReferenceTable
-    Dim res As PDFCrossReferenceTable = Nothing
-
-    Dim byte1 As Byte = PDFStream.ReadByte
-    Dim byte2 As Byte = PDFStream.ReadByte
-    Dim byte3 As Byte = PDFStream.ReadByte
-    Dim byte4 As Byte = PDFStream.ReadByte
-
-    Dim isAligned As Boolean = (byte1 = Asc("x")) And(byte2 = Asc("r")) And(byte3 = Asc("e")) And(byte4 = Asc("f"))
-    'Dim regexSubsection As New Regex("\d+\s\d+(?!(\s(n|f)))")
-    Dim regexSubsectionEntry As New Regex("\d{10}\s\d{5}\s(n|f)")
-
-    If isAligned Then
-
-    Dim line As String
-    res = New PDFCrossReferenceTable
-    Dim sectionSize As Integer
-    Dim sectionStart As Integer = PDFStream.Position
-    Dim trailerStart As Integer
-    If SearchPattern(PDF_TRAILER, SearchDirection.Forward) Then
-    trailerStart = PDFStream.Position
-
-    Trailer = New PDFTrailer
-    Trailer.Dictionary.Value = ReadDictionary(trailerStart)
-
-    sectionSize = trailerStart - sectionStart
-    Dim tmpBuff(sectionSize) As Byte
-    PDFStream.Position = sectionStart
-    PDFStream.Read(tmpBuff, 0, sectionSize)
-
-    Dim Str As String = System.Text.Encoding.ASCII.GetString(tmpBuff, 0, sectionSize)
-    Str = Replace(Str, vbCrLf, vbCr)
-    Str = Replace(Str, vbLf, vbCr)
-    Dim lines() As String = Str.Split(vbCr)
-    Dim listLine As New List(Of String)
-    For Each line In lines
-    If line < > "" And Mid(line, 1, 1) < > "%" Then listLine.Add(line)
-    Next
-
-    Dim done As Boolean = False
-    Dim currentsection As New PDFCrossReferenceSection
-    Dim currentsubsection As PDFSubsection
-    Dim objInitNum As Integer
-    Dim numObjs As Integer
-    While Not done
-    line = listLine(0)
-
-
-    If regexSubsectionEntry.IsMatch(line) Then
-    Dim crefEntry As New CrossReferenceEntry
-    crefEntry.ObjectNumber = objInitNum
-    Dim s As String = line
-    Dim offsetStr As String = Mid(s, 1, 10)
-    s = Mid(line, 11, Len(s) - 10).Trim
-    Dim genNumStr As String = Mid(s, 1, 5)
-    s = Mid(s, 6, Len(s) - 5).Trim
-    crefEntry.ByteOffset = offsetStr
-    crefEntry.GenerationNumber = genNumStr
-
-    Dim state As String = Mid(s, 1, 1)
-    If state = "n" Then crefEntry.Type = SubsectionEntryType.InUse Else crefEntry.Type = SubsectionEntryType.Free
-    objInitNum += 1
-    numObjs -= 1
-    listLine.RemoveAt(0)
-    currentsubsection.Entries.Add(crefEntry)
-    If numObjs = 0 Then
-    currentsection.Subsections.Add(currentsubsection)
-    End If
-    Else
-    Dim nums() As String = line.Split(" ")
-    objInitNum = nums(0)
-    numObjs = nums(1)
-    currentsubsection = New PDFSubsection
-    listLine.RemoveAt(0)
-    End If
-    done = (listLine.Count = 0)
-    End While
-    res.Sections.Add(currentsection)
-    End If
-    End If
-    Return res
-    End Function
-    Private Sub ReadCRTs(Trailer As PDFTrailer, isFirst As Boolean)
-
-    Dim nextTrailer As PDFTrailer
-    Dim PrevOffset As Integer
-
-    If isFirst Then
-    PrevOffset = Trailer.startXRef
-    Else
-    If Trailer.Dictionary.ContainsKey("Prev") Then
-    PrevOffset = Trailer.Dictionary.GetDictValue("Prev").Value
-    Else
-    'no more CRT sections, exit
-    Return
-    End If
-
-    End If
-
-    PDFStream.Seek(PrevOffset, SeekOrigin.Begin)
-    CrossRefTables.Add(ReadReferenceTable(nextTrailer))
-    ReadCRTs(nextTrailer, False)
-
-
-    End Sub
-    Private Function GetObjectPosition(indirectRef As PDFObject) As Integer
-    Dim res As Integer = -1
-    For n = 0 To CrossRefTables.Count - 1
-    res = CrossRefTables(n).GetObjectPos(indirectRef)
-    If res > -1 Then
-    Return res
-    End If
-    Next
-    Return res
-    End Function
-
-    Private Sub ExtractXObjectImage(StreamDict As PDFObject, StreamStartPos As Integer, StreamEndPos As Integer, Optional IsMask As Boolean = False)
-
-
-    Dim typeStr As String
-    Dim SubType As String
-    Dim widthStr As String
-    Dim HeightStr As String
-
-    'Validate the type (OPTIONAL)
-    If StreamDict.ContainsKey(PDF_TYPE) Then
-    typeStr = StreamDict.GetDictValue(PDF_TYPE).Value
-    If typeStr <> PDF_XOBJECT Then
-    MsgBox("ERROR: type for Image must be 'XObject'")
-    Return
-    End If
-    End If
-
-    If StreamDict.ContainsKey(PDF_SUBTYPE) Then
-    SubType = StreamDict.GetDictValue(PDF_SUBTYPE).Value
-    If SubType <> PDF_IMAGE Then
-    MsgBox("ERROR: subtype for Image must be 'Image'")
-    Return
-    End If
-    End If
-
-    If StreamDict.ContainsKey(PDF_WIDTH) Then
-    widthStr = StreamDict.GetDictValue(PDF_WIDTH).Value
-    Else
-    MsgBox("ERROR: image XObject must include the Width entry")
-    Return
-    End If
-
-    If StreamDict.ContainsKey(PDF_HEIGHT) Then
-    HeightStr = StreamDict.GetDictValue(PDF_HEIGHT).Value
-    Else
-    MsgBox("ERROR: image XObject must include the Height entry")
-    Return
-    End If
-
-    Dim BitsPerComponent As String = StreamDict.GetDictValue(PDF_BITS_PER_COMPONENT).Value
-
-
-    'Dim ColorSpace As String = StreamDict.GetDictValue(PDF_COLORSPACE).Value
-    Dim filterObj As PDFObject = StreamDict.GetDictValue(PDF_FILTER)
-
-
-
-    Dim filterName As String
-    If filterObj.Type = PDFObjectType.PDF_Name Then
-    filterName = filterObj.Value
-
-    ElseIf filterObj.Type = PDFObjectType.PDF_Array Then
-    filterName = filterObj.ArrayElements(0).Value
-
-    End If
-
-
-
-
-    If filterObj.Type = PDFObjectType.PDF_Name Then
-    filterName = filterObj.Value
-    ElseIf filterObj.Type = PDFObjectType.PDF_Array Then
-    Dim a = 1
-    End If
-
-
-    Select Case filterName
-    Case PDF_ASCII_HEX_DECODE, PDF_ASCII_HEX_DECODE_ABREV
-    Case PDF_CCITT_85_DECODE, PDF_CCITT_85_DECODE_ABREV
-    Case PDF_LZW_DECODE, PDF_LZW_DECODE_ABREV
-    Case PDF_FLATE_DECODE, PDF_FLATE_DECODE_ABREV
-    Case PDF_RUN_LENGTH_DECODE, PDF_RUN_LENGTH_DECODE_ABREV
-    Case PDF_CCITT_FAX_DECODE, PDF_CCITT_FAX_DECODE_ABREV
-    Dim L As Integer = StreamEndPos - StreamStartPos + 1
-    Dim buffer(L - 1) As Byte
-    PDFStream.Position = StreamStartPos
-
-    If StreamDict.ContainsKey(PDF_DECODEPARAMS) Then
-    Dim DecodeParamsObj As PDFObject = StreamDict.GetDictValue(PDF_DECODEPARAMS)
-
-    'DecodeParamsObj is a dictionary or an array of dictionaries
-
-    Dim K As Integer = DecodeParamsObj.GetDictValue("K").Value
-
-    If StreamDict.ContainsKey("ImageMask") Then
-    Dim isMaskStr As String = StreamDict.GetDictValue("ImageMask").Value
-
-
-
-    End If
-
-
-
-
-    'CCITTFaxDecodeFilter.K = DecodeParamsObj.GetDictValue("K").Value
-    'CCITTFaxDecodeFilter.Columns = DecodeParamsObj.GetDictValue("Width").Value
-    'CCITTFaxDecodeFilter.Rows = DecodeParamsObj.GetDictValue("Height").Value
-    Dim tiffF As New TIFFFile
-    tiffF.ByteOrder = ByteOrder.BitEndian
-
-    If K < 0 Then
-    ' K < 0 --- Pure two-dimensional encoding (Group 4)
-    tiffF.Compression = Compression.T6Encoding
-
-    ElseIf K > 0 Then
-    ' K > 0 --- Mixed one- and two-dimensional encoding (Group 3, 2-D)
-    tiffF.Compression = Compression.T4Encoding
-
-    Else
-    ' K = 0 --- Pure one-dimensional encoding (Group 3, 1-D)
-    tiffF.Compression = Compression.T4Encoding
-    End If
-
-    tiffF.Height = HeightStr
-    tiffF.Width = widthStr
-    tiffF.ReadImage(PDFStream, L)
-    Dim filePath As String
-
-    If IsMask Then
-    filePath = NameNoExt & Images.Count & "_mask.Tiff"
-    Else
-    filePath = NameNoExt & Images.Count & ".Tiff"
-    End If
-
-
-    tiffF.Save(OutputDirectory, filePath)
-    Images.Add(filePath)
-    End If
-
-    Case PDF_DCT_DECODE, PDF_DCT_DECODE_ABREV
-
-    Dim filePath As String
-    If IsMask Then
-    filePath = NameNoExt & Images.Count & "_mask.jpg"
-    Else
-    filePath = NameNoExt & Images.Count & ".jpg"
-    End If
-
-
-    Dim L As Integer = StreamEndPos - StreamStartPos + 1
-    Dim buffer(L - 1) As Byte
-    PDFStream.Position = StreamStartPos
-    PDFStream.Read(buffer, 0, L)
-
-    If StreamDict.ContainsKey("Mask") Then
-    Dim maskObj As PDFObject = StreamDict.GetDictValue("Mask")
-
-    'reference to a stream dict containing the image
-    Dim maskDictObj As PDFObject
-    Dim maskStreamStartPos As Long
-    Dim maskStreamEndPos As Long
-    ReadStream(GetObjectPosition(maskObj), maskDictObj, maskStreamStartPos, maskStreamEndPos)
-    ExtractXObjectImage(maskDictObj, maskStreamStartPos, maskStreamEndPos)
-    Dim a As Integer = 0
-    End If
-
-    IO.File.WriteAllBytes(OutputDirectory & "\" & filePath, buffer)
-        Images.Add(filePath)
-
-        End Select
-
-
-
-        End Sub
-        Private Function ParseResourcesDict(resObj As PDFObject) As PDFObject
-        Dim resDictObj As PDFObject
-        'The standard says this should be a dictionary, but some pdfs place an indirect reference!
-        If resObj.Type = PDFObjectType.PDF_Dictionary Then
-        resDictObj = resObj
-
-        ElseIf resObj.Type = PDFObjectType.PDF_IndirectReference Then
-        Dim resDict As String = ReadDictionary(GetObjectPosition(resObj))
-        resDictObj = New PDFObject
-        resDictObj.Value = resDict
-        End If
-
-        'Parse Procedure Set Names
-        If resDictObj.ContainsKey("ProcSet") Then
-        Dim ProcSetObj As PDFObject = resDictObj.GetDictValue("ProcSet")
-        If ProcSetObj.Type = PDFObjectType.PDF_IndirectReference Then
-
-        End If
-        End If
-
-
-
-        'Parse XObject names
-        If resDictObj.ContainsKey(PDF_XOBJECT) Then
-        Dim ref As New PDFObject
-        ref.Value = resDictObj.GetDictValue(PDF_XOBJECT).Value
-
-        'The XObject is a dictionary with the images
-        Dim images As List(Of PDFObject) = ref.GetAllDictValues
-
-
-        For Each image As PDFObject In images
-        Dim DictObj As PDFObject
-        Dim StreamStartPos As Integer = -1
-        Dim StreamEndPos As Integer = -1
-
-        ReadStream(GetObjectPosition(image), DictObj, StreamStartPos, StreamEndPos)
-        ExtractXObjectImage(DictObj, StreamStartPos, StreamEndPos)
-        Next
-        End If
-
-        Return resDictObj
-        End Function
-        Private Function ReadPageContents(Pos As Integer) As PDFObject
-        Dim pagecontentsObj As New PDFObject
-        PDFStream.Position = Pos
-        If SearchPattern(PDF_OBJ, SearchDirection.Forward) Then
-        Dim p1 As Integer = PDFStream.Position
-
-        SearchPattern(PDF_ENDOBJ, SearchDirection.Forward)
-        Dim p2 As Integer = PDFStream.Position
-
-        Dim cnt As Integer = p2 - p1 - 3
-        Dim arr(cnt) As Byte
-        PDFStream.Position = p1 + 3
-        PDFStream.Read(arr, 0, cnt)
-
-        Dim Str As String = System.Text.Encoding.ASCII.GetString(arr, 0, cnt)
-        Str = Replace(Str, vbCrLf, "")
-        Str = Replace(Str, vbCr, "")
-        Str = Replace(Str, vbLf, "")
-
-        pagecontentsObj.Value = Str
-        End If
-
-
-
-
-        Return pagecontentsObj
-        End Function
-        Private Sub ReadPages(NodePosition As Integer, isRoot As Boolean)
-        Dim nodeDict As String = ReadDictionary(NodePosition)
-        Dim node As New PDFObject
-        node.Value = nodeDict
-
-        Dim NodeType As String = node.GetDictValue(PDF_TYPE).Value
-        Select Case NodeType
-        Case PDF_PAGES
-        'Read Kids Array
-        Dim kids As String = node.GetDictValue(PDF_KIDS).Value
-        Dim mCol As MatchCollection
-        mCol = IndirectReferenceRegex.Matches(kids)
-        For Each m As Match In mCol
-        Dim indRef As New PDFObject
-        indRef.Value = m.Value
-        Dim objPos As Integer = GetObjectPosition(indRef)
-        ReadPages(objPos, False)
-        Next
-
-        Case PDF_PAGE
-        Dim Contents As String = node.GetDictValue(PDF_CONTENTS).Value
-        Dim indRef As New PDFObject
-        indRef.Value = Contents
-        Dim objPos As Integer
-
-        If indRef.Type = PDFObjectType.PDF_Array Then
-        objPos = GetObjectPosition(indRef.ArrayElements(0))
-
-        ElseIf indRef.Type = PDFObjectType.PDF_IndirectReference Then
-        objPos = GetObjectPosition(indRef)
-        Else
-        MsgBox("Check!!!")
-        End If
-
-        Dim Resources As String = node.GetDictValue(PDF_RESOURCES).Value
-        Dim objDict As New PDFObject
-        objDict.Value = Resources
-        Dim ResourcesDict As PDFObject = ParseResourcesDict(objDict)
-
-        CommandParser.Clear()
-        CommandParser.SetPageResourceDict(ResourcesDict)
-        Dim contentsObj As PDFObject = ReadPageContents(objPos)
-
-        If contentsObj.Type = PDFObjectType.PDF_Array Then
-        Dim reft As PDFObject = contentsObj.ArrayElements(0)
-        If reft.Type = PDFObjectType.PDF_IndirectReference Then
-        Dim contentobjPos As Integer = GetObjectPosition(reft)
-
-        Dim contentStreamDict As PDFObject
-        Dim StreamStartPos As Integer
-        Dim StreamEndPos As Integer
-        ReadStream(contentobjPos, contentStreamDict, StreamStartPos, StreamEndPos)
-
-        Dim lengthStr As PDFObject
-        Dim filter As PDFObject
-        If contentStreamDict.ContainsKey(PDF_FILTER) Then
-        filter = New PDFObject
-        filter.Value = contentStreamDict.GetDictValue(PDF_FILTER).Value
-        End If
-
-        If contentStreamDict.ContainsKey(PDF_LENGTH) Then
-        lengthStr = New PDFObject
-        lengthStr.Value = contentStreamDict.GetDictValue(PDF_LENGTH).Value
-        End If
-
-        Dim L As Integer = StreamEndPos - StreamStartPos + 1 - 2
-        Dim buffer(L - 1) As Byte
-        PDFStream.Position = StreamStartPos + 2
-        PDFStream.Read(buffer, 0, L)
-
-
-        If filter IsNot Nothing Then
-        Dim Stream As New MemoryStream()
-        Dim compressStream As New MemoryStream(buffer)
-
-        Dim decompressor As New DeflateStream(compressStream, CompressionMode.Decompress)
-        decompressor.CopyTo(Stream)
-
-        Dim str As String = Encoding.Default.GetString(Stream.ToArray())
-        CommandParser.Parse(str)
-        End If
-        End If
-        Else
-
-        End If
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        End Select
-
-        End Sub
+    bool PDFDocument::SearchPattern(std::string& Pattern, SearchDirection searchDirection)
+    {
+        std::vector<int> patternAscii;
+        int L = (int)Pattern.size();
+        uint8_t currentByte;
+
+        for (int n = 0; n < L; n++)
+            patternAscii.push_back(int((char)Pattern[n]));
+        
+
+        bool found = false;
+        if (SearchDirection == SearchDirection::BACKWARDS)
+        {
+            PDFStream.Position -= L;
+
+            while (!found && PDFStream.Position > -1)
+            {
+                found = true;
+                for (int n = 0; n < L; n++)
+                {
+                    currentByte = PDFStream.ReadByte;
+                    found = found && (currentByte == patternAscii[n]);
+                }
+                PDFStream.Position -= (L + 1);
+            }
+        }
+        else
+        {
+            while (!found && PDFStream.Position < Size)
+            {
+                found = true;
+                for (int n = 0; n < L; n++)
+                {
+                    currentByte = PDFStream.ReadByte;
+                    found = found && (currentByte == patternAscii[n]);
+                }
+                PDFStream.Position -= (L - 1);
+            }
+            if (found)
+                PDFStream.Position -= 1;  //align with the first character
+
+        }
+        return found;
+}
+
+    std::string PDFDocument::ReadDictionary(uint8_t* buffer, int startPos, int buffersize)
+    {
+        bool found = false;
+        int pos = startPos;
+        while (!found && pos < buffersize)
+        {
+            found = (buffer[pos] == int('<')) && (buffer[pos + 1] = int('<'));
+            pos++;
+        }
+
+
+        if (found)
+        {
+            int markerCount = 1;
+            int startdict = pos - 1;
+            int enddict;
+            found = false;
+            while (!found && pos < buffersize)
+            {
+                if (buffer[pos] = int('<')) && (buffer[pos + 1] == int('<'))
+                    markerCount++;
+                if (buffer[pos] = int('>')) && (buffer[pos + 1] == int('>'))
+                    markerCount--;
+                found = (markerCount == 0);
+                pos++;
+            }
+
+            if (found)
+            {
+                enddict = pos + 1;
+                std::string Str = System.Text.Encoding.ASCII.GetString(buffer, startdict, enddict - startdict)
+                    return Str;
+            }
+            else
+                return "";
+        }
+        else
+            return "";
+    
+    }
+
+
+
+    std::string PDFDocument::ReadDictionary(int startPos)
+    {
+        bool found = false;
+        PDFStream.Seek(startPos, SeekOrigin.Begin);
+        uint8_t byte1 = 0;
+        uint8_t byte2 = 0;
+        while (!found && PDFStream.Position < Size)
+        {
+            byte1 = PDFStream.ReadByte;
+            byte2 = PDFStream.ReadByte;
+            found = (byte1 == int('<')) && (byte2 == int('<'));
+            PDFStream.Position--;
+        }
+        if (found)
+        {
+            int markerCount = 1;
+            int startdict = PDFStream.Position - 1; //Position the stream in the first ' < ' symbol
+            int enddict;
+            found = false;
+            while (!found && PDFStream.Position < Size)
+            {
+                byte1 = PDFStream.ReadByte;
+                byte2 = PDFStream.ReadByte;
+                if ((byte1 == int('<')) && (byte2 == int('<')))
+                {
+                    markerCount++;
+                }
+                else if (byte1 == int('>')) && (byte2 == int('>'))
+                {
+                    markerCount--;
+                }
+                else
+                    PDFStream.Position -= 1;     //if no pattern is found, step one back
+            
+                found = (markerCount == 0);
+            }
+
+            if (found)
+            {
+                int enddict = PDFStream.Position - 1;
+                PDFStream.Position = startdict;
+                int length = enddict - startdict + 1;
+
+                uint8_t* Buffer = new uint8_t[length];
+                PDFStream.Read(Buffer, 0, length);
+                std::string Str = System.Text.Encoding.ASCII.GetString(Buffer, 0, length);
+                delete[] Buffer;
+                return Str;
+            }
+            else
+                return "";
+        }
+        else
+          return "";
+    }
+
+
+
+    void PDFDocument::ReadStream(int startPos, PDFObject* DictObj, int* StreamStartPos, int* StreamEndPos)
+    {
+        bool found = false;
+        PDFStream.Seek(startPos, SeekOrigin.Begin);
+        uint8_t byte1;
+        uint8_t byte2;
+
+        while (!found && PDFStream.Position < Size)
+        {
+            byte1 = PDFStream.ReadByte;
+            byte2 = PDFStream.ReadByte;
+            found = (byte1 == int('<')) && (byte2 == int('<'));
+            PDFStream.Position--;
+        }
+
+        if (found)
+        {
+            int markerCount = 1;
+            int startdict = PDFStream.Position - 1;
+            int enddict;
+            found = false;
+
+            while (!found && PDFStream.Position < Size)
+            {
+                byte1 = PDFStream.ReadByte;
+                byte2 = PDFStream.ReadByte;
+                if (byte1 == int('<')) && (byte2 == int('<'))
+                    markerCount++;
+                if (byte1 == int('>')) && (byte2 == int('>'))
+                    markerCount--;
+
+                found = (markerCount == 0);
+                PDFStream.Position--;
+            }
+
+            if (found)
+            {
+                enddict = PDFStream.Position + 1;
+                PDFStream.Position = startdict;
+                uint8_t Buffer* = new uint8_t[enddict - startdict];
+                PDFStream.Read(Buffer, 0, enddict - startdict);
+                std::string Str = System.Text.Encoding.ASCII.GetString(Buffer, 0, enddict - startdict);
+                DictObj = New PDFObject;
+                DictObj.Value = Str;
+
+                //Move to the beginning of the stream
+                SearchPattern(PDF_STREAM, SearchDirection.Forward);
+                PDFStream.Position += Len(PDF_STREAM);
+                //stream must be followed either by a LF or a CR LF --> NO CR alone!
+                byte1 = PDFStream.ReadByte;
+                if (byte1 == 10)
+                    StreamStartPos = PDFStream.Position;
+                else if (byte1 == 13)
+                {
+                    byte2 = PDFStream.ReadByte;
+                    if (byte2 == 10)
+                        StreamStartPos = PDFStream.Position;
+                    else
+                    {
+                        //MsgBox("ERROR!!! stream not followed by either LF or CR LF")
+                    }
+                }
+
+                SearchPattern(PDF_ENDSTREAM, SearchDirection.Forward);
+                StreamEndPos = PDFStream.Position;
+            }
+            else
+            {
+                DictObj = Nothing;
+                StreamStartPos = -1;
+                StreamEndPos = -1;
+            }
+        }
+
+        else
+        {
+            DictObj = Nothing;
+            StreamStartPos = -1;
+            StreamEndPos = -1;
+        }
+    }
+
+
+    PDFCrossReferenceTable* PDFDocument::ReadReferenceTable(PDFTrailer* Trailer)
+    {
+        PDFCrossReferenceTable* res = NULL;
+
+        uint8_t byte1 = PDFStream.ReadByte;
+        uint8_t byte2 = PDFStream.ReadByte;
+        uint8_t byte3 = PDFStream.ReadByte;
+        uint8_t byte4 = PDFStream.ReadByte;
+
+        bool isAligned = (byte1 == int('x')) && (byte2 == int('r')) && (byte3 == int('e')) && (byte4 == int('f'));
+            //Dim regexSubsection As New Regex("\d+\s\d+(?!(\s(n|f)))")
+        Dim regexSubsectionEntry As New Regex("\d{10}\s\d{5}\s(n|f)");
+
+            if( isAligned)
+            {
+
+                std::string line;
+                res = New PDFCrossReferenceTable;
+                int sectionSize;
+                int sectionStart = PDFStream.Position;
+                int trailerStart;
+            if (SearchPattern(PDF_TRAILER, SearchDirection.Forward))
+            {
+                trailerStart = PDFStream.Position;
+
+                Trailer = New PDFTrailer;
+                Trailer.Dictionary.Value = ReadDictionary(trailerStart);
+
+                sectionSize = trailerStart - sectionStart;
+                uint8_t* tmpBuff = new uint8_t[sectionSize];
+                PDFStream.Position = sectionStart;
+                PDFStream.Read(tmpBuff, 0, sectionSize);
+
+                std::string Str = System.Text.Encoding.ASCII.GetString(tmpBuff, 0, sectionSize);
+                Str = Replace(Str, vbCrLf, vbCr);
+                Str = Replace(Str, vbLf, vbCr);
+                Dim lines() As String = Str.Split(vbCr);
+                Dim listLine As New List(Of String);
+                For Each line In lines
+                    If line < > "" And Mid(line, 1, 1) < > "%" Then listLine.Add(line)
+                    Next
+
+                    bool done = false;
+                PDFCrossReferenceSection* currentsection = new PDFCrossReferenceSection;
+            Dim currentsubsection As PDFSubsection
+            Dim objInitNum As Integer
+            Dim numObjs As Integer
+            While Not done
+            line = listLine(0)
+
+
+            If regexSubsectionEntry.IsMatch(line) Then
+            Dim crefEntry As New CrossReferenceEntry
+            crefEntry.ObjectNumber = objInitNum
+            Dim s As String = line
+            Dim offsetStr As String = Mid(s, 1, 10)
+            s = Mid(line, 11, Len(s) - 10).Trim
+            Dim genNumStr As String = Mid(s, 1, 5)
+            s = Mid(s, 6, Len(s) - 5).Trim
+            crefEntry.ByteOffset = offsetStr
+            crefEntry.GenerationNumber = genNumStr
+
+            Dim state As String = Mid(s, 1, 1)
+            If state = "n" Then crefEntry.Type = SubsectionEntryType.InUse Else crefEntry.Type = SubsectionEntryType.Free
+            objInitNum += 1
+            numObjs -= 1
+            listLine.RemoveAt(0)
+            currentsubsection.Entries.Add(crefEntry)
+            If numObjs = 0 Then
+            currentsection.Subsections.Add(currentsubsection)
+            End If
+            Else
+            Dim nums() As String = line.Split(" ")
+            objInitNum = nums(0)
+            numObjs = nums(1)
+            currentsubsection = New PDFSubsection
+            listLine.RemoveAt(0)
+            End If
+            done = (listLine.Count = 0)
+            End While
+            res.Sections.Add(currentsection)
+            End If
+            End If
+            Return res
+            End Function
+            Private Sub ReadCRTs(Trailer As PDFTrailer, isFirst As Boolean)
+
+            Dim nextTrailer As PDFTrailer
+            Dim PrevOffset As Integer
+
+            If isFirst Then
+            PrevOffset = Trailer.startXRef
+            Else
+            If Trailer.Dictionary.ContainsKey("Prev") Then
+            PrevOffset = Trailer.Dictionary.GetDictValue("Prev").Value
+            Else
+            'no more CRT sections, exit
+            Return
+            End If
+
+            End If
+
+            PDFStream.Seek(PrevOffset, SeekOrigin.Begin)
+            CrossRefTables.Add(ReadReferenceTable(nextTrailer))
+            ReadCRTs(nextTrailer, False)
+
+
+    }
+
+
+
+            int PDFDocument::GetObjectPosition(PDFObject & indirectRef)
+            {
+                int res = -1;
+                for (int n = 0; n < CrossRefTables.Count; n++)
+                {
+                    res = CrossRefTables[n].GetObjectPos(indirectRef);
+                    if (res > -1)
+                        return res;
+
+                }
+                return res;
+            }
+
+            void PDFDocument::ExtractXObjectImage(StreamDict As PDFObject, int StreamStartPos, int StreamEndPos, bool IsMask)
+            {
+                std::string typeStr;
+                std::string SubType;
+                std::string widthStr;
+                std::string HeightStr;
+
+                //Validate the type (OPTIONAL)
+                if (StreamDict.ContainsKey(PDF_TYPE))
+                {
+                    typeStr = StreamDict.GetDictValue(PDF_TYPE).Value;
+                    if (typeStr != PDF_XOBJECT)
+                    {
+                        //MsgBox("ERROR: type for Image must be 'XObject'")
+                        return;
+                    }
+                }
+
+
+
+                if (StreamDict.ContainsKey(PDF_SUBTYPE))
+                {
+                    SubType = StreamDict.GetDictValue(PDF_SUBTYPE).Value;
+                    if (SubType != PDF_IMAGE)
+                    {
+                        //MsgBox("ERROR: subtype for Image must be 'Image'")
+                        return;
+                    }
+                }
+
+
+                if (StreamDict.ContainsKey(PDF_WIDTH))
+                {
+                    widthStr = StreamDict.GetDictValue(PDF_WIDTH).Value;
+                }
+                else
+                {
+                    //MsgBox("ERROR: image XObject must include the Width entry")
+                    return;
+                }
+
+
+                if (StreamDict.ContainsKey(PDF_HEIGHT))
+                {
+                    HeightStr = StreamDict.GetDictValue(PDF_HEIGHT).Value;
+                }
+                else
+                {
+                    //MsgBox("ERROR: image XObject must include the Height entry")
+                    return;
+                }
+
+                std::string BitsPerComponent = StreamDict.GetDictValue(PDF_BITS_PER_COMPONENT).Value;
+
+
+                    //Dim ColorSpace As String = StreamDict.GetDictValue(PDF_COLORSPACE).Value
+                PDFObject filterObj = StreamDict.GetDictValue(PDF_FILTER);
+
+
+
+                std::string filterName;
+                if (filterObj.Type == PDFObjectType.PDF_Name)
+                {
+                    filterName = filterObj.Value;
+                }
+
+                else if (filterObj.Type == PDFObjectType.PDF_Array)
+                {
+                    filterName = filterObj.ArrayElements(0).Value;
+                }
+
+                if (filterObj.Type == PDFObjectType.PDF_Name)
+                {
+                    filterName = filterObj.Value;
+                }
+                else if (filterObj.Type == PDFObjectType.PDF_Array)
+                {
+                    int a = 1;
+                }
+
+
+                switch (filterName)
+                {
+                case PDF_ASCII_HEX_DECODE:
+                case PDF_ASCII_HEX_DECODE_ABREV:
+                case PDF_CCITT_85_DECODE:
+                case PDF_CCITT_85_DECODE_ABREV:
+                case PDF_LZW_DECODE:
+                case PDF_LZW_DECODE_ABREV:
+                case PDF_FLATE_DECODE:
+                case PDF_FLATE_DECODE_ABREV:
+                case PDF_RUN_LENGTH_DECODE:
+                case PDF_RUN_LENGTH_DECODE_ABREV:
+                case PDF_CCITT_FAX_DECODE:
+                case PDF_CCITT_FAX_DECODE_ABREV:
+                {
+                    int L = StreamEndPos - StreamStartPos + 1;
+                    uint8_t* buffer = new uint8_t[L];
+                    PDFStream.Position = StreamStartPos;
+
+                    if (StreamDict.ContainsKey(PDF_DECODEPARAMS))
+                    {
+                        PDFObject DecodeParamsObj = StreamDict.GetDictValue(PDF_DECODEPARAMS);
+
+                        //DecodeParamsObj is a dictionary or an array of dictionaries
+
+                        int K = DecodeParamsObj.GetDictValue("K").Value;
+
+                        if (StreamDict.ContainsKey("ImageMask"))
+                        {
+                            std::string isMaskStr = StreamDict.GetDictValue("ImageMask").Value;
+                        }
+
+
+
+
+                        //CCITTFaxDecodeFilter.K = DecodeParamsObj.GetDictValue("K").Value
+                        //CCITTFaxDecodeFilter.Columns = DecodeParamsObj.GetDictValue("Width").Value
+                        //CCITTFaxDecodeFilter.Rows = DecodeParamsObj.GetDictValue("Height").Value
+                        Dim tiffF As New TIFFFile
+                            tiffF.ByteOrder = ByteOrder.BitEndian;
+
+                        if (K < 0)
+                        {
+                            // K < 0 --- Pure two-dimensional encoding (Group 4)
+                            tiffF.Compression = Compression.T6Encoding;
+                        }
+                        else if (K > 0)
+                        {
+                            // K > 0 --- Mixed one- and two-dimensional encoding (Group 3, 2-D)
+                            tiffF.Compression = Compression.T4Encoding;
+                        }
+                        else
+                        {
+                            // K = 0 --- Pure one-dimensional encoding (Group 3, 1-D)
+                            tiffF.Compression = Compression.T4Encoding;
+                        }
+
+
+                        tiffF.Height = HeightStr;
+                        tiffF.Width = widthStr;
+                        tiffF.ReadImage(PDFStream, L);
+                        std::string filePath;
+
+                        if (IsMask)
+                            filePath = NameNoExt & Images.Count & "_mask.Tiff";
+                        else
+                            filePath = NameNoExt & Images.Count & ".Tiff";
+
+
+
+                        tiffF.Save(OutputDirectory, filePath);
+                        Images.Add(filePath);
+
+                    }
+                    break;
+                }
+
+                case PDF_DCT_DECODE:
+                case PDF_DCT_DECODE_ABREV:
+                {
+
+                    std::string filePath;
+                    if (IsMask)
+                        filePath = NameNoExt + Images.Count + "_mask.jpg";
+                    else
+                        filePath = NameNoExt + Images.Count + ".jpg";
+
+                    int L = StreamEndPos - StreamStartPos + 1;
+                    uint8_t* buffer = new uint8_t[L];
+                    PDFStream.Position = StreamStartPos;
+                    PDFStream.Read(buffer, 0, L);
+                    delete[] buffer;
+
+                    if (StreamDict.ContainsKey("Mask"))
+                    {
+                        PDFObject maskObj = StreamDict.GetDictValue("Mask");
+
+                        //reference to a stream dict containing the image
+                        PDFObject maskDictObj;
+                        int maskStreamStartPos; // As Long
+                        int maskStreamEndPos; // As Long
+                        ReadStream(GetObjectPosition(maskObj), maskDictObj, maskStreamStartPos, maskStreamEndPos);
+                        ExtractXObjectImage(maskDictObj, maskStreamStartPos, maskStreamEndPos);
+                        int a = 0;
+                    }
+
+
+                    IO.File.WriteAllBytes(OutputDirectory & "\" & filePath, buffer)
+                        Images.Add(filePath);
+
+                }
+
+
+
+                }
+
+
+
+                PDFObject* PDFDocument::ParseResourcesDict(PDFObject& resObj )
+                {
+                    PDFObject* resDictObj = NULL;
+                            //The standard says this should be a dictionary, but some pdfs place an indirect reference!
+                    if (resObj.Type == PDFObjectType.PDF_Dictionary)
+                    {
+                        resDictObj = *resObj;
+                    }
+                    else if (resObj.Type == PDFObjectType.PDF_IndirectReference)
+                    {
+                        std::string resDict = ReadDictionary(GetObjectPosition(resObj));
+                        resDictObj = New PDFObject;
+                        resDictObj.Value = resDict;
+                    }
+
+                            //Parse Procedure Set Names
+                    if (resDictObj.ContainsKey("ProcSet"))
+                    {
+                        PDFObject ProcSetObj = resDictObj.GetDictValue("ProcSet");
+                        if (ProcSetObj.Type == PDFObjectType.PDF_IndirectReference)
+                        {
+                        }
+                    }
+
+
+
+                            //Parse XObject names
+                    if (resDictObj.ContainsKey(PDF_XOBJECT))
+                    {
+                        PDFObject* ref = new PDFObject;
+                        ref.Value = resDictObj.GetDictValue(PDF_XOBJECT).Value;
+
+                        //The XObject is a dictionary with the images
+                        Dim images As List(Of PDFObject) = ref.GetAllDictValues
+
+
+                            For Each image As PDFObject In images
+                            Dim DictObj As PDFObject
+                            Dim StreamStartPos As Integer = -1
+                            Dim StreamEndPos As Integer = -1
+
+                            ReadStream(GetObjectPosition(image), DictObj, StreamStartPos, StreamEndPos)
+                            ExtractXObjectImage(DictObj, StreamStartPos, StreamEndPos)
+                            Next
+                    }
+
+                return resDictObj;
+            }
+
+
+                PDFObject* PDFDocument::ReadPageContents(int Pos)
+                {
+                    PDFObject* pagecontentsObj = new PDFObject;
+                    PDFStream.Position = Pos;
+                    if (SearchPattern(PDF_OBJ, SearchDirection.Forward))
+                    {
+                        int p1 = PDFStream.Position;
+
+                        SearchPattern(PDF_ENDOBJ, SearchDirection.Forward);
+                        int p2 = PDFStream.Position;
+
+                        int cnt = p2 - p1 - 3;
+                        uint8_t arr = new uint8_t[cnt];
+                        PDFStream.Position = p1 + 3;
+                        PDFStream.Read(arr, 0, cnt);
+                        delete[] arr;
+
+                        std::string Str = System.Text.Encoding.ASCII.GetString(arr, 0, cnt);
+                        Str = Replace(Str, vbCrLf, "");
+                        Str = Replace(Str, vbCr, "");
+                        Str = Replace(Str, vbLf, "");
+
+                        pagecontentsObj.Value = Str;
+                    }
+                    return pagecontentsObj;
+                }
+
+
+        void PDFDocument::ReadPages(int NodePosition, bool isRoot)
+        {
+            std::string nodeDict = ReadDictionary(NodePosition);
+            PDFObject* node = new PDFObject;
+            node.Value = nodeDict;
+
+            std::string NodeType = node.GetDictValue(PDF_TYPE).Value;
+        switch(NodeType)
+        {
+        case PDF_PAGES:
+        {
+            //Read Kids Array
+            std::string kids = node.GetDictValue(PDF_KIDS).Value;
+            Dim mCol As MatchCollection
+                mCol = IndirectReferenceRegex.Matches(kids)
+                For Each m As Match In mCol
+                Dim indRef As New PDFObject
+                indRef.Value = m.Value
+                Dim objPos As Integer = GetObjectPosition(indRef)
+                ReadPages(objPos, False)
+                Next
+                break;
+        }
+        case PDF_PAGE:
+        {
+            std::string Contents = node.GetDictValue(PDF_CONTENTS).Value;
+            PDFObject* indRef = new PDFObject;
+            indRef.Value = Contents;
+            int objPos;
+
+            if (indRef.Type == PDFObjectType.PDF_Array)
+            {
+                objPos = GetObjectPosition(indRef.ArrayElements(0));
+            }
+            else if (indRef.Type == PDFObjectType.PDF_IndirectReference)
+            {
+                objPos = GetObjectPosition(indRef);
+            }
+            else
+            {
+                //MsgBox("Check!!!")
+            }
+
+
+            std::string Resources = node.GetDictValue(PDF_RESOURCES).Value;
+            PDFObject* objDict = new PDFObject;
+            objDict.Value = Resources;
+            PDFObject ResourcesDict = ParseResourcesDict(objDict);
+
+            CommandParser.Clear();
+            CommandParser.SetPageResourceDict(ResourcesDict);
+            PDFObject contentsObj = ReadPageContents(objPos);
+
+            if (contentsObj.Type == PDFObjectType.PDF_Array)
+            {
+                PDFObject reft = contentsObj.ArrayElements(0);
+                if (reft.Type == PDFObjectType.PDF_IndirectReference)
+                {
+                    int contentobjPos = GetObjectPosition(reft);
+
+                    PDFObject contentStreamDict;
+                    int StreamStartPos;
+                    int StreamEndPos;
+                    ReadStream(contentobjPos, contentStreamDict, StreamStartPos, StreamEndPos);
+
+                    PDFObject lengthStr;
+                    PDFObject filter;
+                    if (contentStreamDict.ContainsKey(PDF_FILTER))
+                    {
+                        filter = New PDFObject;
+                        filter.Value = contentStreamDict.GetDictValue(PDF_FILTER).Value;
+                    }
+
+
+                    if (contentStreamDict.ContainsKey(PDF_LENGTH))
+                    {
+                        lengthStr = New PDFObject;
+                        lengthStr.Value = contentStreamDict.GetDictValue(PDF_LENGTH).Value;
+                    }
+
+                    int L = StreamEndPos - StreamStartPos + 1 - 2;
+                    uint8_t* buffer = uint8_t[L];
+                    PDFStream.Position = StreamStartPos + 2;
+                    PDFStream.Read(buffer, 0, L);
+
+
+                    if (filter != NULL)
+                    {
+                        Dim Stream As New MemoryStream();
+                        Dim compressStream As New MemoryStream(buffer);
+
+                        Dim decompressor As New DeflateStream(compressStream, CompressionMode.Decompress);
+                        decompressor.CopyTo(Stream);
+
+                        std::string str = Encoding.Default.GetString(Stream.ToArray());
+                        CommandParser.Parse(str);
+                    }
+                }
+                else
+                {
+                }
+
+            }
+        }
+
         Public Sub Load(FilePath As String)
 
         Name = IO.Path.GetFileName(FilePath)
@@ -1047,62 +1150,71 @@ bool PDFDocument::SearchPattern(uint8_t* Buff, std::string Pattern, int* current
 
 
 
-        Private Function ProcessCrossReferenceTable(offset As Integer) As PDFCrossReferenceTable
-        Dim found As Boolean = False
-        Dim res As New PDFCrossReferenceTable
+    PDFCrossReferenceTable* ProcessCrossReferenceTable(int offset)
+    {
+        bool found = false;
+        PDFCrossReferenceTable* res = new PDFCrossReferenceTable;
 
-        While Not found And offset < NumLines
-        Dim line As String = Lines(offset)
-        found = (InStr(line, PDF_XREF) > 0) And(line <> PDF_START_XREF)
+        while (!found && (offset < NumLines))
+        {
+            std::string line = Lines[offset];
+            found = (InStr(line, PDF_XREF) > 0) && (line <> PDF_START_XREF);
 
-        If found Then
-        Dim newSection As New PDFCrossReferenceSection
-        offset += 1
-        'Start subsections
-        regex = New Regex("\d\s\d", RegexOptions.Singleline)
-        Dim FoundSubsections As Boolean = regex.IsMatch(Lines(offset))
-        While FoundSubsections
-        Dim nums() As String = Lines(offset).Split(" ")
-        Dim objNum As Integer = nums(0)
-        Dim numObjects As Integer = nums(1)
-        Dim newSubsection As New PDFSubsection
+            if (found)
+            {
+                PDFCrossReferenceSection* newSection = new PDFCrossReferenceSection();
+                offset++;
+                //Start subsections
+                regex = New Regex("\d\s\d", RegexOptions.Singleline);
+                bool FoundSubsections = regex.IsMatch(Lines(offset));
+                while (FoundSubsections)
+                {
+                    Dim nums() As String = Lines(offset).Split(" ");
+                    int objNum = nums(0);
+                    int numObjects = nums(1);
+                    PDFSubsection* newSubsection = new PDFSubsection;
 
-        offset += 1
-        For n = 0 To numObjects - 1
+                    offset++;
+                    for (int n = 0; n < numObjects; n++)
+                    {
+                        std::string subSectionLine = Lines(offset + n);
+                        int objNumber = objNum + n;
 
-        Dim subSectionLine As String = Lines(offset + n)
-        Dim objNumber As Integer = objNum + n
+                        CrossReferenceEntry* entry = new CrossReferenceEntry;
+                        entry.ObjectNumber = objNumber;
 
-        Dim entry As New CrossReferenceEntry
-        entry.ObjectNumber = objNumber
+                        nums = subSectionLine.Split(" ");
+                        if (nums.Length == 3)
+                        {
+                            entry.ByteOffset = nums(0);
+                            entry.GenerationNumber = nums(1);
+                            if (nums(2) == "n")
+                            {
+                                entry.Type = SubsectionEntryType.InUse;
+                            }
+                            else if (nums(2) == "f")
+                            {
+                                entry.Type = SubsectionEntryType.Free;
+                            }
+                        }
+                        else
+                        {
+                            //MsgBox("ERROR:: Subsection format not recognized")
+                            Exit Function;
+                        }
+                            newSubsection.Entries.Add(entry);
+                    }
 
-        nums = subSectionLine.Split(" ")
-        If nums.Length = 3 Then
-        entry.ByteOffset = nums(0)
-        entry.GenerationNumber = nums(1)
-        If nums(2) = "n" Then
-        entry.Type = SubsectionEntryType.InUse
-        ElseIf nums(2) = "f" Then
-        entry.Type = SubsectionEntryType.Free
-        End If
+                    offset += numObjects;
+                    FoundSubsections = regex.IsMatch(Lines(offset));
+                    newSection.Subsections.Add(newSubsection);
+                }
 
-        Else
-        MsgBox("ERROR:: Subsection format not recognized")
-        Exit Function
-        End If
-        newSubsection.Entries.Add(entry)
-        Next
+                res.Sections.Add(newSection);
 
-        offset += numObjects
-        FoundSubsections = regex.IsMatch(Lines(offset))
-        newSection.Subsections.Add(newSubsection)
-        End While
+            }
 
-        res.Sections.Add(newSection)
-
-        End If
-
-        offset += 1
-        End While
-        Return res
-        End Function
+            offset++;
+        }
+        return res;
+    }

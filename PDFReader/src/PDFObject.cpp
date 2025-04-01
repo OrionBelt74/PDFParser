@@ -6,6 +6,8 @@
 PDFObject::PDFObject(PDFObjectType ObjecType)
 {
     Type = ObjectType;
+    WhiteSpaces = { char(0), char(9), char(10), char(12), char(13), char(32) };
+    Delimiters = { '[', ']', '{', '}', '<', '>', '%', '(', ')' };
 }
 
 PDFObject::~PDFObject()
@@ -25,6 +27,7 @@ Get
 Return _Type
 End Get
 End Property
+
 Property Value As String
 Set(val As String)
 _Value = val
@@ -109,6 +112,15 @@ void PDFObject::ExtractKeyValuePairs(std::string& s, std::vector<std::pair<std::
     std::string key;
     std::string value;
 
+    keyValuePairs.clear();
+    while (sTemp != "")
+    {
+        if (std::regex_search(sTemp, NameRegex))
+        {
+
+        }
+    }
+    std::smatch ma
         Dim m As Match
         Dim res As New List(Of KeyValuePair(Of String, String))
         While sTemp < > ""
@@ -251,100 +263,112 @@ Return res
 
 End Function
 
-Private Sub ProcessValue()
+void ProcessValue()
+{
 
-Dim tmpStr As String
-Dim KeyValuePairs As List(Of KeyValuePair(Of String, String))
+    Dim tmpStr As String
+        Dim KeyValuePairs As List(Of KeyValuePair(Of String, String))
 
-If Len(Value.Trim) >= 2 AndAlso(Mid(Value, 1, 2) = "<<" And Mid(Value, Len(Value) - 1, 2) = ">>") Then
-Type = PDFObjectType.PDF_Dictionary
-tmpStr = Mid(Value, 3, Len(Value) - 4).Trim
+        If Len(Value.Trim) >= 2 AndAlso(Mid(Value, 1, 2) = "<<" And Mid(Value, Len(Value) - 1, 2) = ">>") Then
+        Type = PDFObjectType::PDF_Dictionary;
+    tmpStr = Mid(Value, 3, Len(Value) - 4).Trim
 
-'Do not process based on lines! values can be also dictionaries which are split in different lines.
-_dict.Clear()
+        //Do not process based on lines! values can be also dictionaries which are split in different lines.
+        _dict.Clear()
 
-KeyValuePairs = ExtractKeyValuePairs(tmpStr)
-For Each kvp As KeyValuePair(Of String, String) In KeyValuePairs
-AddEntry(kvp.Key, kvp.Value)
-Next
-
-
-ElseIf Mid(Value, 1, 1) = "[" And Mid(Value, Len(Value), 1) = "]" Then
-Type = PDFObjectType.PDF_Array
-tmpStr = Mid(Value, 2, Len(Value) - 2).Trim
-ArrayElements.Clear()
-Dim elements As List(Of String) = ExtractArrayElements(tmpStr)
-For Each s As String In elements
-Dim pdfObj As New PDFObject
-pdfObj.Value = s
-ArrayElements.Add(pdfObj)
-Next
+        KeyValuePairs = ExtractKeyValuePairs(tmpStr)
+        For Each kvp As KeyValuePair(Of String, String) In KeyValuePairs
+        AddEntry(kvp.Key, kvp.Value)
+        Next
 
 
-ElseIf Mid(Value, 1, 1) = "/" Then
-Type = PDFObjectType.PDF_Name
-_Value = Mid(Value, 2, Len(Value) - 1)
+        ElseIf Mid(Value, 1, 1) = "[" And Mid(Value, Len(Value), 1) = "]" Then
+        Type = PDFObjectType.PDF_Array
+        tmpStr = Mid(Value, 2, Len(Value) - 2).Trim
+        ArrayElements.Clear()
+        Dim elements As List(Of String) = ExtractArrayElements(tmpStr)
+        For Each s As String In elements
+        Dim pdfObj As New PDFObject
+        pdfObj.Value = s
+        ArrayElements.Add(pdfObj)
+        Next
 
 
-ElseIf IndirectReferenceRegex.IsMatch(Value.Trim) Then
-Type = PDFObjectType.PDF_IndirectReference
-Dim val As String = Value.Replace("R", "").Trim
-Dim comps() As String = val.Split(" ")
-IndirectReference = New Tuple(Of Integer, Integer)(comps(0).Trim, comps(1).Trim)
-
-ElseIf NumericRegex.IsMatch(Value.Trim) Then
-Type = PDFObjectType.PDF_Number
-End If
+        ElseIf Mid(Value, 1, 1) = "/" Then
+        Type = PDFObjectType.PDF_Name
+        _Value = Mid(Value, 2, Len(Value) - 1)
 
 
+        ElseIf IndirectReferenceRegex.IsMatch(Value.Trim) Then
+        Type = PDFObjectType.PDF_IndirectReference
+        Dim val As String = Value.Replace("R", "").Trim
+        Dim comps() As String = val.Split(" ")
+        IndirectReference = New Tuple(Of Integer, Integer)(comps(0).Trim, comps(1).Trim)
 
+        ElseIf NumericRegex.IsMatch(Value.Trim) Then
+        Type = PDFObjectType.PDF_Number
+        End If
 
 
 
 
-End Sub
-Public Function GetDictValue(key As String) As PDFObject
-If Type = PDFObjectType.PDF_Dictionary Then
-If _dict.ContainsKey(key) Then
-Return _dict(key)
-Else
-Return Nothing
-End If
 
 
-ElseIf Type = PDFObjectType.PDF_Array Then
-'Assume each element is a dictionary
-Dim found As Boolean = False
-Dim ind As Integer = 0
-While Not found And ind < ArrayElements.Count
-    Dim pdfD As PDFObject = ArrayElements(ind)
-    found = pdfD.ContainsKey(key)
-    If found Then
-    Return pdfD.GetDictValue(key)
-    End If
-    ind += 1
-    End While
-    Else
-    Return Nothing
-    End If
-    End Function
-    Public Function GetAllDictValues() As List(Of PDFObject)
-    Dim res As New List(Of PDFObject)
-    If Type = PDFObjectType.PDF_Dictionary Then
-    For Each v As PDFObject In _dict.Values
-    res.Add(v)
-    Next
-    Return res
-    Else
-    Return Nothing
-    End If
-    End Function
 
-    Public Function ContainsKey(key As String) As Boolean
-    If Type = PDFObjectType.PDF_Dictionary Then
-    Return _dict.ContainsKey(key)
-    Else
-    Return False
-    End If
-    End Function
-    End Class
+}
+
+
+PDFObject* PDFObject::GetDictValue(std::string key)
+{
+    if (Type == PDFObjectType.PDF_Dictionary)
+    {
+        if (_dict.contains(key))
+            return _dict[key];
+        else
+            Return NULL;
+    }
+    else if (Type == PDFObjectType::PDF_Array)
+    {
+        //Assume each element is a dictionary
+        bool found = false;
+        int ind = 0;
+
+        while (!found && (ind < ArrayElements.size()))
+        {
+            PDFObject* pdfD = ArrayElements[ind];
+            found = pdfD.ContainsKey(key);
+            if (found)
+            {
+                return pdfD.GetDictValue(key);
+            }
+            ind++;
+        }
+    }
+    else
+        return NULL;
+}
+
+
+
+void PDFObject::GetAllDictValues(std::vector<PDFObject*>& result)
+{
+    result.clear();
+    if (Type == PDFObjectType::PDF_Dictionary)
+    {
+        for (auto dKey : _dict)
+        {
+            PDFObject* v = dKey.second;
+            result.push_back(v);
+        }
+    }
+}
+
+bool PDFObject::ContainsKey(std::string key)
+{
+    if (Type == PDFObjectType::PDF_Dictionary)
+    {
+        return _dict.contains(key);
+    }
+    else
+        return false;
+}

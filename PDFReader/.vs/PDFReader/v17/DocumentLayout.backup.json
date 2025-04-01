@@ -3,12 +3,24 @@
   "WorkspaceRootPath": "C:\\Workspace\\PDFParser\\PDFReader\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFObject.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|solutionrelative:inc\\PDFObject.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFDocument.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|solutionrelative:src\\PDFDocument.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFDocument.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|solutionrelative:inc\\PDFDocument.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFObject.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|solutionrelative:src\\PDFObject.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFObject.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|solutionrelative:inc\\PDFObject.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFDefinitions.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|solutionrelative:inc\\PDFDefinitions.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFSubsection.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -23,20 +35,8 @@
       "RelativeMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|solutionrelative:inc\\CrossReferenceEntry.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFDefinitions.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|solutionrelative:inc\\PDFDefinitions.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFCrossReferenceTable.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|solutionrelative:inc\\PDFCrossReferenceTable.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFDocument.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|solutionrelative:src\\PDFDocument.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFDocument.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|solutionrelative:inc\\PDFDocument.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,50 +46,76 @@
       "DocumentGroups": [
         {
           "DockedWidth": 258,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "CrossReferenceEntry.hpp",
-              "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\CrossReferenceEntry.hpp",
-              "RelativeDocumentMoniker": "inc\\CrossReferenceEntry.hpp",
-              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\CrossReferenceEntry.hpp",
-              "RelativeToolTip": "inc\\CrossReferenceEntry.hpp",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAAAAcAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-03-19T18:21:30.397Z",
+              "DocumentIndex": 2,
+              "Title": "PDFObject.cpp",
+              "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFObject.cpp",
+              "RelativeDocumentMoniker": "src\\PDFObject.cpp",
+              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFObject.cpp",
+              "RelativeToolTip": "src\\PDFObject.cpp",
+              "ViewState": "AgIAAGwBAAAAAAAAAADwv3YBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-03-19T06:25:33.697Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "PDFObject.hpp",
               "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFObject.hpp",
               "RelativeDocumentMoniker": "inc\\PDFObject.hpp",
               "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFObject.hpp",
               "RelativeToolTip": "inc\\PDFObject.hpp",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAABMAAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAAB4AAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-03-19T06:24:04.839Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PDFCrossReferenceSection.hpp",
-              "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFCrossReferenceSection.hpp",
-              "RelativeDocumentMoniker": "inc\\PDFCrossReferenceSection.hpp",
-              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFCrossReferenceSection.hpp",
-              "RelativeToolTip": "inc\\PDFCrossReferenceSection.hpp",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "PDFDefinitions.hpp",
+              "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFDefinitions.hpp",
+              "RelativeDocumentMoniker": "inc\\PDFDefinitions.hpp",
+              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFDefinitions.hpp",
+              "RelativeToolTip": "inc\\PDFDefinitions.hpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHoAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-03-19T18:16:35.557Z",
+              "WhenOpened": "2025-03-19T06:29:47.186Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": "PDFDocument.cpp",
+              "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFDocument.cpp",
+              "RelativeDocumentMoniker": "src\\PDFDocument.cpp",
+              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFDocument.cpp",
+              "RelativeToolTip": "src\\PDFDocument.cpp",
+              "ViewState": "AgIAAH0EAAAAAAAAAAAAAIkEAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-03-19T05:35:51.133Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PDFDocument.hpp",
+              "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFDocument.hpp",
+              "RelativeDocumentMoniker": "inc\\PDFDocument.hpp",
+              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFDocument.hpp",
+              "RelativeToolTip": "inc\\PDFDocument.hpp",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAowBgAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-03-19T05:24:25.041Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "PDFSubsection.hpp",
               "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFSubsection.hpp",
               "RelativeDocumentMoniker": "inc\\PDFSubsection.hpp",
@@ -97,47 +123,7 @@
               "RelativeToolTip": "inc\\PDFSubsection.hpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-03-19T18:18:52.628Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "PDFObject.cpp",
-              "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFObject.cpp",
-              "RelativeDocumentMoniker": "src\\PDFObject.cpp",
-              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFObject.cpp",
-              "RelativeToolTip": "src\\PDFObject.cpp",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-03-19T06:25:33.697Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "PDFDefinitions.hpp",
-              "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFDefinitions.hpp",
-              "RelativeDocumentMoniker": "inc\\PDFDefinitions.hpp",
-              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFDefinitions.hpp",
-              "RelativeToolTip": "inc\\PDFDefinitions.hpp",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAAAAsAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-03-19T06:29:47.186Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "PDFCrossReferenceTable.hpp",
-              "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFCrossReferenceTable.hpp",
-              "RelativeDocumentMoniker": "inc\\PDFCrossReferenceTable.hpp",
-              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFCrossReferenceTable.hpp",
-              "RelativeToolTip": "inc\\PDFCrossReferenceTable.hpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-03-19T18:14:38.735Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-19T18:18:52.628Z"
             },
             {
               "$type": "Bookmark",
@@ -145,29 +131,39 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PDFCrossReferenceSection.hpp",
+              "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFCrossReferenceSection.hpp",
+              "RelativeDocumentMoniker": "inc\\PDFCrossReferenceSection.hpp",
+              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFCrossReferenceSection.hpp",
+              "RelativeToolTip": "inc\\PDFCrossReferenceSection.hpp",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-03-19T18:16:35.557Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "PDFDocument.cpp",
-              "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFDocument.cpp",
-              "RelativeDocumentMoniker": "src\\PDFDocument.cpp",
-              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFDocument.cpp",
-              "RelativeToolTip": "src\\PDFDocument.cpp",
-              "ViewState": "AgIAABQEAAAAAAAAAAAowO4DAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-03-19T05:35:51.133Z",
-              "EditorCaption": ""
+              "Title": "CrossReferenceEntry.hpp",
+              "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\CrossReferenceEntry.hpp",
+              "RelativeDocumentMoniker": "inc\\CrossReferenceEntry.hpp",
+              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\CrossReferenceEntry.hpp",
+              "RelativeToolTip": "inc\\CrossReferenceEntry.hpp",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAAAAcAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-03-19T18:21:30.397Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "PDFDocument.hpp",
-              "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFDocument.hpp",
-              "RelativeDocumentMoniker": "inc\\PDFDocument.hpp",
-              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFDocument.hpp",
-              "RelativeToolTip": "inc\\PDFDocument.hpp",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAowBEAAAAVAAAAAAAAAA==",
+              "Title": "PDFCrossReferenceTable.hpp",
+              "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFCrossReferenceTable.hpp",
+              "RelativeDocumentMoniker": "inc\\PDFCrossReferenceTable.hpp",
+              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFCrossReferenceTable.hpp",
+              "RelativeToolTip": "inc\\PDFCrossReferenceTable.hpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-03-19T05:24:25.041Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-19T18:14:38.735Z"
             },
             {
               "$type": "Bookmark",

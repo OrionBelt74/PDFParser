@@ -118,6 +118,6 @@ const std::string REGEX_PDF_NAME = "/[a-zA-Z0-9#_]+";
 
 const std::regex IndirectReferenceRegex("\\d+\\s\\d+\\sR");
 
-const std::string REGEX_PDF_ARRAY As String = "/[a-zA-Z0-9#_]*?";
+const std::string REGEX_PDF_ARRAY = "/[a-zA-Z0-9#_]*?";
 const std::regex NameRegex(REGEX_PDF_NAME);
 #endif
