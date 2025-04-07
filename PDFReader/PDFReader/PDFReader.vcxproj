@@ -134,10 +134,12 @@
     <ClInclude Include="..\inc\PDFDocument.hpp" />
     <ClInclude Include="..\inc\PDFObject.hpp" />
     <ClInclude Include="..\inc\PDFSubsection.hpp" />
+    <ClInclude Include="..\inc\StringUtils.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\PDFDocument.cpp" />
     <ClCompile Include="..\src\PDFObject.cpp" />
+    <ClCompile Include="..\src\StringUtils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

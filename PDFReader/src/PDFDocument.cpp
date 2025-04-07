@@ -2,10 +2,14 @@
 
 #include <cstdint>
 #include <vector>
+#include <filesystem>
+#include <fstream>
+#include "../inc/StringUtils.hpp"
 
 PDFDocument::PDFDocument()
 {
         //CCITTFaxDecodeFilter = New CCITTFaxDecodeFilter
+    Trailer = NULL;
 }
 
 PDFDocument::~PDFDocument()
@@ -880,155 +884,187 @@ bool PDFDocument::SearchPattern(uint8_t* Buff, std::string Pattern, int* current
             }
         }
 
-        Public Sub Load(FilePath As String)
 
-        Name = IO.Path.GetFileName(FilePath)
-        NameNoExt = IO.Path.GetFileNameWithoutExtension(FilePath)
-        Images.Clear()
+        void PDFDocument::Load(std::string FilePath)
+        {
+            std::ifstream file(FilePath);
+            Lines.clear();
+            p = FilePath;
+            Name = p.replace_extension();
+            NameNoExt = p.replace_extension();
+            Images.Clear();
 
-        Lines = IO.File.ReadAllLines(FilePath)
-        Trailer = New PDFTrailer
-        NumLines = Lines.Length
+            std::string line;
 
+            while (std::getline(file, line)
+            {
+                std::istringstream ss(line);
+                Lines.push_back(line);
+            }
+            file.close();
 
-        Dim offset As Integer = 0
-        FileInfo = New FileInfo(FilePath)
-        Size = FileInfo.Length
-
-        PDFStream = New FileStream(FilePath, FileMode.Open)
-        Dim tmpBuffer(BUFF_SIZE - 1) As Byte
-
-
-        'Read Trailer first. Load 1024 bytes from the end
-        PDFStream.Seek(-BUFF_SIZE, SeekOrigin.End)
-        PDFStream.Read(tmpBuffer, 0, BUFF_SIZE)
-        Dim eofIndex As Integer = SearchForEOF(tmpBuffer, BUFF_SIZE)
-        If eofIndex = -1 Then
-        MsgBox("ERROR:: Could not read the trailer")
-        End If
-        Dim currentPos As Integer = eofIndex
-        Dim patternOK As Boolean = SearchPattern(tmpBuffer, PDF_START_XREF, currentPos, SearchDirection.Backward)
-        Dim str As String = System.Text.Encoding.ASCII.GetString(tmpBuffer, currentPos, eofIndex - currentPos)
-        str = Replace(str, PDF_START_XREF, "")
-        str = Replace(str, vbCrLf, "")
-        str = Replace(str, vbCr, "")
-        str = Replace(str, vbLf, "")
-        Trailer.startXRef = Integer.Parse(str)
-        Dim startxrefIndex As Integer = currentPos
-        patternOK = SearchPattern(tmpBuffer, PDF_TRAILER, currentPos, SearchDirection.Backward)
-        Dim trailerStartPos As Integer = Size - BUFF_SIZE + currentPos
-        Dim trailerDict As String = ReadDictionary(tmpBuffer, currentPos, BUFF_SIZE)
-        Trailer.Dictionary.Value = trailerDict
-        Trailer.Position = trailerStartPos
-
-        ReadCRTs(Trailer, True)
+            Trailer = New PDFTrailer;
+            NumLines = (int)Lines.size();
 
 
-        'Check Trailer dict content
-        Dim TotalNumCRTEntries As Integer = Trailer.Dictionary.GetDictValue("Size").Value
-        Dim fileHasMoreThanOneCRT As Boolean = Trailer.Dictionary.ContainsKey("Prev")
-        If Trailer.Dictionary.ContainsKey(PDF_ROOT) Then
-        Dim indRef As PDFObject = Trailer.Dictionary.GetDictValue(PDF_ROOT)
-        Dim catalogPos As Integer = GetObjectPosition(indRef)
-        If catalogPos > -1 Then
-        Dim catalogDict As String = ReadDictionary(catalogPos)
-        Catalog.Value = catalogDict
-        'Validate Catalog
-        Dim CatalogOK As Boolean = Catalog.GetDictValue("Type").Value = "Catalog"
-        Dim pageTreeNode As New PDFObject
-        pageTreeNode.Value = Catalog.GetDictValue("Pages").Value
-        Dim pageTreeNodePos As Integer = GetObjectPosition(pageTreeNode)
-        ReadPages(pageTreeNodePos, True)
-        End If
-        End If
-        Dim fileHasInfoDictionary As Boolean = Trailer.Dictionary.ContainsKey("Info")
-        Dim fileIsEncryptedAs As Boolean = Trailer.Dictionary.ContainsKey("Encrypt")
+            Dim offset As Integer = 0
+                FileInfo = New FileInfo(FilePath)
+                Size = FileInfo.Length
+
+                //PDFStream = New FileStream(FilePath, FileMode.Open)
+                unsigned char tmpBuffer[BUFF_SIZE];
 
 
-        ''Check if file is linearized
-        'PDFStream.Seek(0, SeekOrigin.Begin)
-        'PDFStream.Read(tmpBuffer, 0, BUFF_SIZE)
-        'Dim objPos As Integer = SearchForOBJ(tmpBuffer, BUFF_SIZE)
-        'Dim endObjPos As Integer = SearchForENDOBJ(tmpBuffer, BUFF_SIZE, objPos)
-        'str = System.Text.Encoding.ASCII.GetString(tmpBuffer, objPos, endObjPos - objPos - 2)
-        'IsLinearized = InStr(str, "/Linearized") > 0
-        'If IsLinearized Then
-        '    LinearizationParameterDictionary = New PDFObject
-        '    LinearizationParameterDictionary.Value = ReadDictionary(tmpBuffer, objPos, BUFF_SIZE)
+                //Read Trailer first. Load 1024 bytes from the end
+            file.seekg(0, ios_base::end);
+            int length = file.tellg();
 
-        '    'Sanity check : read L
-        '    Dim L As Integer = LinearizationParameterDictionary.GetDictValue("L").Value
-        '    If L <> Size Then
-        '        MsgBox("ERROR:: L and Size are not equal!!!!")
-        '        Return
-        '    End If
-        '    Dim N As Integer = LinearizationParameterDictionary.GetDictValue("N").Value
-        'End If
-        PDFStream.Close()
+            file.seekg(length - BUFF_SIZE, ios_base::beg);
+            file.read(tmpBuffer, 0, BUFF_SIZE);
 
-        End Sub
-        Private Function ReadNextObject(ByRef offset As Integer) As PDFObject
-        Dim res As PDFObject = Nothing
-        Dim objStartIndex As Integer
-        Dim objStopIndex As Integer
+            int eofIndex = SearchForEOF(tmpBuffer, BUFF_SIZE);
+            if (eofIndex == -1)
+            {
+                MsgBox("ERROR:: Could not read the trailer")
+            }
+            int currentPos = eofIndex;
+            bool patternOK = SearchPattern(tmpBuffer, PDF_START_XREF, currentPos, SearchDirection::BACKWARDS);
+            std::string str = System.Text.Encoding.ASCII.GetString(tmpBuffer, currentPos, eofIndex - currentPos);
+            str = Replace(str, PDF_START_XREF, "");
+            //str = Replace(str, vbCrLf, "");
+            //str = Replace(str, vbCr, "");
+            str = Replace(str, "\n", "");
 
-        regex = New Regex("\d\s\d\s" & PDF_OBJ, RegexOptions.Singleline)
-        Dim Found As Boolean = False
-        While Not Found And offset < NumLines
-        Found = regex.IsMatch(Lines(offset))
-        offset += 1
-        End While
+            Trailer->startXRef = std::stoi(str);
+            int startxrefIndex = currentPos;
+            patternOK = SearchPattern(tmpBuffer, PDF_TRAILER, currentPos, SearchDirection::BACKWARDS);
+            int trailerStartPos = Size - BUFF_SIZE + currentPos;
+            std::string trailerDict = ReadDictionary(tmpBuffer, currentPos, BUFF_SIZE);
+            Trailer->Dictionary.Value = trailerDict;
+            Trailer->Position = trailerStartPos;
 
-        If Found Then
-        objStartIndex = offset
-
-        Dim nums() As String = Lines(offset - 1).Split(" ")
-        Dim objNumber As Integer = nums(0)
-        Dim objGenNumber As Integer = nums(1)
+            ReadCRTs(Trailer, true);
 
 
-        Found = False
-        regex = New Regex(PDF_ENDOBJ, RegexOptions.Singleline)
-        While Not Found And offset < NumLines
-        Found = regex.IsMatch(Lines(offset))
-        offset += 1
-        End While
+                //Check Trailer dict content
+            int TotalNumCRTEntries = Trailer->Dictionary.GetDictValue("Size").Value;
+            bool fileHasMoreThanOneCRT = Trailer->Dictionary.ContainsKey("Prev");
+            if (Trailer->Dictionary.ContainsKey(PDF_ROOT))
+            {
+                PDFObject indRef = TrailerDictionaryr->GetDictValue(PDF_ROOT);
+                int catalogPos = GetObjectPosition(indRef);
+                if (catalogPos > -1)
+                {
+                    std::string catalogDict = ReadDictionary(catalogPos);
+                    Catalog.Value = catalogDict;
 
-        If Found Then
-        objStopIndex = offset - 2
-        Dim ObjValue As String = ""
-        Dim cnt As Integer = 0
-        For n = objStartIndex To objStopIndex
-        ObjValue = ObjValue & Lines(n).Trim
-        If cnt < objStopIndex - objStartIndex Then ObjValue = ObjValue & vbCrLf
-        cnt += 1
-        Next
-
-        res = New PDFObject
-        res.Value = ObjValue
-        End If
-
-
-        End If
-
-        Return res
-        End Function
-        Private Function CheckFirstPageTrailer(ByRef firstPageTrailer As PDFTrailer) As Boolean
-        Dim res As Boolean
-
-        If Not firstPageTrailer.Dictionary.ContainsKey(PDF_SIZE) Then Return False
-        If Not firstPageTrailer.Dictionary.ContainsKey(PDF_ROOT) Then Return False
+                    //Validate Catalog
+                    bool CatalogOK = Catalog.GetDictValue("Type").Value == "Catalog";
+                    PDFObject* pageTreeNode = New PDFObject();
+                    pageTreeNode->Value = Catalog.GetDictValue("Pages").Value;
+                    int pageTreeNodePos = GetObjectPosition(pageTreeNode);
+                    ReadPages(pageTreeNodePos, true);
+                }
+            }
+            bool fileHasInfoDictionary = Trailer->Dictionary.ContainsKey("Info");
+            bool fileIsEncryptedAs = Trailer->Dictionary.ContainsKey("Encrypt");
 
 
+                //Check if file is linearized
+                //PDFStream.Seek(0, SeekOrigin.Begin)
+                //PDFStream.Read(tmpBuffer, 0, BUFF_SIZE)
+                //Dim objPos As Integer = SearchForOBJ(tmpBuffer, BUFF_SIZE)
+                //Dim endObjPos As Integer = SearchForENDOBJ(tmpBuffer, BUFF_SIZE, objPos)
+                //str = System.Text.Encoding.ASCII.GetString(tmpBuffer, objPos, endObjPos - objPos - 2)
+                //IsLinearized = InStr(str, "/Linearized") > 0
+                //If IsLinearized Then
+                //    LinearizationParameterDictionary = New PDFObject
+                //    LinearizationParameterDictionary.Value = ReadDictionary(tmpBuffer, objPos, BUFF_SIZE)
+
+                //    'Sanity check : read L
+                //    Dim L As Integer = LinearizationParameterDictionary.GetDictValue("L").Value
+                //    If L <> Size Then
+                //        MsgBox("ERROR:: L and Size are not equal!!!!")
+                //        Return
+                //    End If
+                //    Dim N As Integer = LinearizationParameterDictionary.GetDictValue("N").Value
+                //End If
+            file.close();
+
+        }
+
+        PDFObject* PDFDocument::ReadNextObject(int* offset)
+        {
+            int index = *offset;
+            PDFObject* res = NULL;
+            int objStartIndex = 0;
+            int objStopIndex = 0;
+
+            regex = New Regex("\d\s\d\s" & PDF_OBJ, RegexOptions.Singleline);
+            bool Found = false;
+            while (!Found && index < NumLines)
+            {
+                Found = regex.IsMatch(Lines(offset));
+                index++;
+            }
+
+            if (Found)
+            {
+                objStartIndex = index;
+                std::vector<std::string> nums;
+                Split(Lines[index - 1], " ", nums);
+
+                int objNumber = nums[0];
+                int objGenNumber = nums[1];
 
 
+                Found = false;
+                regex = New Regex(PDF_ENDOBJ, RegexOptions.Singleline);
+                while (!Found && (index < NumLines))
+                {
+                    Found = regex.IsMatch(Lines(offset));
+                    index++;
+                }
 
-        Return res
-        End Function
-        Private Function CheckIfLinearized(ByRef offset As Integer) As Boolean
-        Dim dictStartIndex As Integer
-        Dim dictStopIndex As Integer
-        Dim res As Boolean = False
+                if (Found)
+                {
+                    objStopIndex = offset - 2;
+                    std::string ObjValue = "";
+                    int cnt = 0;
+                    for (int n = objStartIndex; n <= objStopIndex; n++)
+                    {
+                        ObjValue = ObjValue & Lines[n].Trim();
+                        if (cnt < objStopIndex - objStartIndex)
+                            ObjValue = ObjValue + "\n";
+                        cnt++;
+                    }
+
+                    res = New PDFObject();
+                    res->Value = ObjValue;
+                }
+            }
+
+            *offset = index;
+            return res;
+        }
+        
+        bool CheckFirstPageTrailer(PDFTrailer* firstPageTrailer)
+        {
+            bool res = true;
+
+            if (!firstPageTrailer->Dictionary.ContainsKey(PDF_SIZE))
+                res = false;
+            if (!firstPageTrailer->Dictionary.ContainsKey(PDF_ROOT))
+                res = false;
+
+            return res;
+        }
+
+        bool CheckIfLinearized(int* offset) 
+        {
+            int dictStartIndex;
+            int dictStopIndex;
+            bool res = false;
 
         regex = New Regex("\d\s\d\s" & PDF_OBJ, RegexOptions.Singleline)
         Dim Found As Boolean = False

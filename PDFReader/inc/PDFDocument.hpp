@@ -2,6 +2,8 @@
 #define PDF_DOCUMENT
 
 #include <string>
+#include <filesystem>
+
 
 enum class SearchDirection
 {
@@ -15,8 +17,11 @@ public:
     PDFDocument();
     ~PDFDocument();
 
+    std::filesystem::path p;
     std::string Name;
     std::string NameNoExt;
+    std::vector<std::string> Lines;
+    PDFTrailer* Trailer;
 
     int SearchForEOF(uint8_t* Buff, int size);
     int SearchForOBJ(uint8_t* Buff, int size, int startIndex = 0);
@@ -36,6 +41,10 @@ public:
     PDFObject* ParseResourcesDict(PDFObject& resObj );
     PDFObject* ReadPageContents(int Pos);
     void ReadPages(int NodePosition, bool isRoot);
+    void Load(std::string FilePath);
+    PDFObject* ReadNextObject(int* offset);
+    bool CheckFirstPageTrailer(PDFTrailer* firstPageTrailer);
+    bool CheckIfLinearized(int* offset);
 };
 
 
