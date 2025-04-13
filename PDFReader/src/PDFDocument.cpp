@@ -126,25 +126,25 @@ bool PDFDocument::SearchPattern(uint8_t* Buff, std::string Pattern, int* current
 
     bool found = false;
     if (direction == SearchDirection::BACKWARDS)
-        currentPos -= L;
+        (*currentPos) -= L;
 
 
-    while (!found && currentPos > -1)
+    while (!found && (*currentPos > -1))
     {
         found = true;
         for (int n = 0; n < L; n++)
             found = found && (buffer[currentPos + n] == patternAscii[n]);
 
         if (direction == SearchDirection::BACKWARDS)
-            currentPos--;
+            (*currentPos)--;
         else
-            currentPos++;
+            (*currentPos)++;
 
         //move back one position to let 'currentPos' at the start of the pattern
         if (direction == SearchDirection::BACKWARDS)
-            currentPos++;
+            (*currentPos)++;
         else
-            currentPos--;
+            (*currentPos)--;
         return found;
     }
 }
@@ -1060,85 +1060,91 @@ bool PDFDocument::SearchPattern(uint8_t* Buff, std::string Pattern, int* current
             return res;
         }
 
-        bool CheckIfLinearized(int* offset) 
+        bool CheckIfLinearized(int* offset)
         {
             int dictStartIndex;
             int dictStopIndex;
             bool res = false;
 
-        regex = New Regex("\d\s\d\s" & PDF_OBJ, RegexOptions.Singleline)
-        Dim Found As Boolean = False
-        While Not Found And offset < NumLines
-        Found = regex.IsMatch(Lines(offset))
-        offset += 1
-        End While
-        If Found Then
-        dictStartIndex = offset
+            regex = New Regex("\d\s\d\s" & PDF_OBJ, RegexOptions.Singleline)
+                bool Found = false;
+            while (!Found && offset < NumLines)
+            {
+                Found = regex.IsMatch(Lines(offset));
+                offset++;
+            }
 
-        Dim nums() As String = Lines(offset - 1).Split(" ")
-        Dim objNumber As Integer = nums(0)
-        Dim objGenNumber As Integer = nums(1)
+            if (Found)
+            {
+                dictStartIndex = offset;
+                std::vector<string> nums;
+                Split(Lines [[offset - 1]], " ", nums);
+                //Dim nums() As String = Lines(offset - 1).Split(" ")
+                int objNumber = std::stoi(nums[0]);
+                int objGenNumber = std::stoi(nums[1]);
 
-        LinearizationParameterDictionary = New PDFObject(PDFObjectType.PDF_Dictionary)
-        Found = False
-        regex = New Regex(PDF_ENDOBJ, RegexOptions.Singleline)
-        While Not Found And offset < NumLines
-        Found = regex.IsMatch(Lines(offset))
-        offset += 1
-        End While
+                LinearizationParameterDictionary = new PDFObject(PDFObjectType.PDF_Dictionary);
+                found = false;
+                regex = New Regex(PDF_ENDOBJ, RegexOptions.Singleline);
 
-        'If Found Then
-        '    dictStopIndex = offset - 2
+                while (!Found && offset < NumLines)
+                {
+                    found = regex.IsMatch(Lines(offset));
+                    offset++;
+                }
 
-        '    For n = dictStartIndex To dictStopIndex
-        '        Dim dictLine As String = Lines(n).Trim
-        '        If dictLine <> "" Then dictLine = Replace(dictLine, "<<", "").Trim
-        '        If dictLine <> "" Then dictLine = Replace(dictLine, ">>", "").Trim
-        '        If dictLine <> "" Then LinearizationParameterDictionary.AddEntry(dictLine)
-        '    Next
+                /* 'If Found Then
+                 '    dictStopIndex = offset - 2
 
-        '    'Check that all applicable fields are present
-        '    If Not LinearizationParameterDictionary.ContainsKey("/" & PDF_LINEARIZED) Then
-        '        LinearizationParameterDictionary = Nothing
-        '        Return False
-        '    End If
-        '    If Not LinearizationParameterDictionary.ContainsKey("/L") Then
-        '        MsgBox("ERROR:: 'Length' entry not present in the LinearizationParameterDictionary")
-        '        LinearizationParameterDictionary = Nothing
-        '        Return False
-        '    End If
-        '    If Not LinearizationParameterDictionary.ContainsKey("/H") Then
-        '        MsgBox("ERROR:: 'H' entry not present in the LinearizationParameterDictionary")
-        '        LinearizationParameterDictionary = Nothing
-        '        Return False
-        '    End If
-        '    If Not LinearizationParameterDictionary.ContainsKey("/O") Then
-        '        MsgBox("ERROR:: 'O' entry not present in the LinearizationParameterDictionary")
-        '        LinearizationParameterDictionary = Nothing
-        '        Return False
-        '    End If
-        '    If Not LinearizationParameterDictionary.ContainsKey("/E") Then
-        '        MsgBox("ERROR:: 'E' entry not present in the LinearizationParameterDictionary")
-        '        LinearizationParameterDictionary = Nothing
-        '        Return False
-        '    End If
-        '    If Not LinearizationParameterDictionary.ContainsKey("/N") Then
-        '        MsgBox("ERROR:: 'N' entry not present in the LinearizationParameterDictionary")
-        '        LinearizationParameterDictionary = Nothing
-        '        Return False
-        '    End If
-        '    If Not LinearizationParameterDictionary.ContainsKey("/T") Then
-        '        MsgBox("ERROR:: 'T' entry not present in the LinearizationParameterDictionary")
-        '        LinearizationParameterDictionary = Nothing
-        '        Return False
-        '    End If
+                 '    For n = dictStartIndex To dictStopIndex
+                 '        Dim dictLine As String = Lines(n).Trim
+                 '        If dictLine <> "" Then dictLine = Replace(dictLine, "<<", "").Trim
+                 '        If dictLine <> "" Then dictLine = Replace(dictLine, ">>", "").Trim
+                 '        If dictLine <> "" Then LinearizationParameterDictionary.AddEntry(dictLine)
+                 '    Next
 
-        'End If
-        res = True
-        End If
-        Return res
-        End Function
+                 '    'Check that all applicable fields are present
+                 '    If Not LinearizationParameterDictionary.ContainsKey("/" & PDF_LINEARIZED) Then
+                 '        LinearizationParameterDictionary = Nothing
+                 '        Return False
+                 '    End If
+                 '    If Not LinearizationParameterDictionary.ContainsKey("/L") Then
+                 '        MsgBox("ERROR:: 'Length' entry not present in the LinearizationParameterDictionary")
+                 '        LinearizationParameterDictionary = Nothing
+                 '        Return False
+                 '    End If
+                 '    If Not LinearizationParameterDictionary.ContainsKey("/H") Then
+                 '        MsgBox("ERROR:: 'H' entry not present in the LinearizationParameterDictionary")
+                 '        LinearizationParameterDictionary = Nothing
+                 '        Return False
+                 '    End If
+                 '    If Not LinearizationParameterDictionary.ContainsKey("/O") Then
+                 '        MsgBox("ERROR:: 'O' entry not present in the LinearizationParameterDictionary")
+                 '        LinearizationParameterDictionary = Nothing
+                 '        Return False
+                 '    End If
+                 '    If Not LinearizationParameterDictionary.ContainsKey("/E") Then
+                 '        MsgBox("ERROR:: 'E' entry not present in the LinearizationParameterDictionary")
+                 '        LinearizationParameterDictionary = Nothing
+                 '        Return False
+                 '    End If
+                 '    If Not LinearizationParameterDictionary.ContainsKey("/N") Then
+                 '        MsgBox("ERROR:: 'N' entry not present in the LinearizationParameterDictionary")
+                 '        LinearizationParameterDictionary = Nothing
+                 '        Return False
+                 '    End If
+                 '    If Not LinearizationParameterDictionary.ContainsKey("/T") Then
+                 '        MsgBox("ERROR:: 'T' entry not present in the LinearizationParameterDictionary")
+                 '        LinearizationParameterDictionary = Nothing
+                 '        Return False
+                 '    End If
 
+                 'End If*/
+                res = true;
+            }
+
+            return res;
+        }
 
 
 

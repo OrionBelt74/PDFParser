@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Workspace\\PDFParser\\PDFReader\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFObject.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|solutionrelative:src\\PDFObject.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFDocument.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|solutionrelative:src\\PDFDocument.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -13,10 +17,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|C:\\Workspace\\PDFParser\\PDFReader\\inc\\StringUtils.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|solutionrelative:inc\\StringUtils.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFObject.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|solutionrelative:src\\PDFObject.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFObject.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -50,30 +50,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 258,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 4,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "StringUtils.hpp",
-              "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\StringUtils.hpp",
-              "RelativeDocumentMoniker": "inc\\StringUtils.hpp",
-              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\StringUtils.hpp",
-              "RelativeToolTip": "inc\\StringUtils.hpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABTAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-02T05:06:27.995Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d3750d8a-574b-4fb3-b7e2-aa8af40e8231}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "PDFDocument.cpp",
               "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFDocument.cpp",
               "RelativeDocumentMoniker": "src\\PDFDocument.cpp",
               "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFDocument.cpp",
               "RelativeToolTip": "src\\PDFDocument.cpp",
-              "ViewState": "AgIAAB8EAAAAAAAAAAAAACoEAAAdAAAAAAAAAA==",
+              "ViewState": "AgIAAI0AAAAAAAAAAAAUwJMAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-03-19T05:35:51.133Z",
               "EditorCaption": ""
@@ -92,16 +83,41 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "PDFDocument.hpp",
               "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFDocument.hpp",
               "RelativeDocumentMoniker": "inc\\PDFDocument.hpp",
               "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFDocument.hpp",
               "RelativeToolTip": "inc\\PDFDocument.hpp",
-              "ViewState": "AgIAABwAAAAAAAAAAAAAAC4AAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAABwAAAAAAAAAAAAAACYAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-03-19T05:24:25.041Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PDFObject.cpp",
+              "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFObject.cpp",
+              "RelativeDocumentMoniker": "src\\PDFObject.cpp",
+              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFObject.cpp",
+              "RelativeToolTip": "src\\PDFObject.cpp",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAwwBEBAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-03-19T06:25:33.697Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "StringUtils.hpp",
+              "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\StringUtils.hpp",
+              "RelativeDocumentMoniker": "inc\\StringUtils.hpp",
+              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\StringUtils.hpp",
+              "RelativeToolTip": "inc\\StringUtils.hpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABTAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-04-02T05:06:27.995Z"
             },
             {
               "$type": "Document",
@@ -114,18 +130,6 @@
               "ViewState": "AgIAABEAAAAAAAAAAAAAAB4AAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-03-19T06:24:04.839Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PDFObject.cpp",
-              "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFObject.cpp",
-              "RelativeDocumentMoniker": "src\\PDFObject.cpp",
-              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFObject.cpp",
-              "RelativeToolTip": "src\\PDFObject.cpp",
-              "ViewState": "AgIAAGwBAAAAAAAAAADwv3YBAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-03-19T06:25:33.697Z"
             },
             {
               "$type": "Document",

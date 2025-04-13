@@ -82,6 +82,18 @@ C:\Workspace\PDFParser\PDFReader\inc\PDFDocument.hpp(42,5): error C4430: missing
 C:\Workspace\PDFParser\PDFReader\inc\PDFDocument.hpp(42,41): error C2238: unexpected token(s) preceding ';'
   (compiling source file '../src/PDFDocument.cpp')
   
+C:\Workspace\PDFParser\PDFReader\inc\PDFDocument.hpp(45,14): error C2143: syntax error: missing ';' before '*'
+  (compiling source file '../src/PDFDocument.cpp')
+  
+C:\Workspace\PDFParser\PDFReader\inc\PDFDocument.hpp(45,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  (compiling source file '../src/PDFDocument.cpp')
+  
+C:\Workspace\PDFParser\PDFReader\inc\PDFDocument.hpp(45,43): error C2238: unexpected token(s) preceding ';'
+  (compiling source file '../src/PDFDocument.cpp')
+  
+C:\Workspace\PDFParser\PDFReader\inc\PDFDocument.hpp(46,32): error C2061: syntax error: identifier 'PDFTrailer'
+  (compiling source file '../src/PDFDocument.cpp')
+  
 C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(12,5): error C2065: 'Trailer': undeclared identifier
 C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(38,46): error C2059: syntax error: ')'
 C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(73,76): error C2572: 'PDFDocument::SearchForENDOBJ': redefinition of default argument: parameter 1
@@ -167,10 +179,7 @@ C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(352,29): error C2065: 'PDFS
 C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(354,25): error C2065: 'StreamStartPos': undeclared identifier
 C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(354,42): error C2065: 'PDFStream': undeclared identifier
 C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(361,31): error C2065: 'PDF_ENDSTREAM': undeclared identifier
-C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(362,17): error C2065: 'StreamEndPos': undeclared identifier
-C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(362,32): error C2065: 'PDFStream': undeclared identifier
-C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(366,17): error C2065: 'DictObj': undeclared identifier
-C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(366,17): error C1003: error count exceeds 100; stopping compilation
+C:\Workspace\PDFParser\PDFReader\src\PDFDocument.cpp(361,31): error C1003: error count exceeds 100; stopping compilation
   PDFObject.cpp
 C:\Workspace\PDFParser\PDFReader\inc\PDFDefinitions.hpp(43,1): error C2143: syntax error: missing ';' before 'const'
   (compiling source file '../src/PDFObject.cpp')

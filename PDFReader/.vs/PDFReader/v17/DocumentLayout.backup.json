@@ -7,12 +7,12 @@
       "RelativeMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|solutionrelative:src\\PDFDocument.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|C:\\Workspace\\PDFParser\\PDFReader\\inc\\StringUtils.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|solutionrelative:inc\\StringUtils.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFDocument.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|solutionrelative:inc\\PDFDocument.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|C:\\Workspace\\PDFParser\\PDFReader\\inc\\StringUtils.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|solutionrelative:inc\\StringUtils.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F88B1789-8BCA-424B-ADBA-C3B16435DB2E}|PDFReader\\PDFReader.vcxproj|C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFObject.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -50,33 +50,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 258,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "StringUtils.hpp",
-              "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\StringUtils.hpp",
-              "RelativeDocumentMoniker": "inc\\StringUtils.hpp",
-              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\StringUtils.hpp",
-              "RelativeToolTip": "inc\\StringUtils.hpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-02T05:06:27.995Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "PDFDocument.cpp",
               "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFDocument.cpp",
               "RelativeDocumentMoniker": "src\\PDFDocument.cpp",
-              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFDocument.cpp*",
-              "RelativeToolTip": "src\\PDFDocument.cpp*",
-              "ViewState": "AgIAAMQDAAAAAAAAAAAAANUDAAAQAAAAAAAAAA==",
+              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\src\\PDFDocument.cpp",
+              "RelativeToolTip": "src\\PDFDocument.cpp",
+              "ViewState": "AgIAACAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-03-19T05:35:51.133Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StringUtils.hpp",
+              "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\StringUtils.hpp",
+              "RelativeDocumentMoniker": "inc\\StringUtils.hpp",
+              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\StringUtils.hpp",
+              "RelativeToolTip": "inc\\StringUtils.hpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABTAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-04-02T05:06:27.995Z"
             },
             {
               "$type": "Document",
@@ -92,13 +91,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "PDFDocument.hpp",
               "DocumentMoniker": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFDocument.hpp",
               "RelativeDocumentMoniker": "inc\\PDFDocument.hpp",
-              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFDocument.hpp*",
-              "RelativeToolTip": "inc\\PDFDocument.hpp*",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Workspace\\PDFParser\\PDFReader\\inc\\PDFDocument.hpp",
+              "RelativeToolTip": "inc\\PDFDocument.hpp",
+              "ViewState": "AgIAABwAAAAAAAAAAAAAACYAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-03-19T05:24:25.041Z",
               "EditorCaption": ""

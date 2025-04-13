@@ -188,86 +188,88 @@ void PDFObject::ExtractKeyValuePairs(std::string& s, std::vector<std::pair<std::
 }
 
 
-Private Function ExtractArrayElements(s As String) As List(Of String)
-Dim sTemp As String = s
+void ExtractArrayElements(std::string s, std::vector<std::string>& elements)
+{
+    std::string sTemp = s;
 
-Dim element As String
-Dim res As New List(Of String)
-Dim mcol As MatchCollection
+    std::string element;
+    std::vector<std::string> res;
 
-While sTemp < > ""
+    Dim mcol As MatchCollection
 
-If DictRegex.IsMatch(sTemp) AndAlso DictRegex.Match(sTemp).Value = Mid(sTemp, 1, Len(DictRegex.Match(sTemp).Value)) Then
-mcol = DictRegex.Matches(sTemp)
-For Each m As Match In mcol
-element = m.Value
-res.Add(element)
-Next
-sTemp = DictRegex.Replace(sTemp, "").Trim()
+        While sTemp < > ""
 
-ElseIf ArrayRegex.IsMatch(sTemp) AndAlso ArrayRegex.Match(sTemp).Value = Mid(sTemp, 1, Len(ArrayRegex.Match(sTemp).Value)) Then
-mcol = ArrayRegex.Matches(sTemp)
-For Each m As Match In mcol
-element = m.Value
-res.Add(element)
-Next
-sTemp = ArrayRegex.Replace(sTemp, "").Trim()
+        If DictRegex.IsMatch(sTemp) AndAlso DictRegex.Match(sTemp).Value = Mid(sTemp, 1, Len(DictRegex.Match(sTemp).Value)) Then
+        mcol = DictRegex.Matches(sTemp)
+        For Each m As Match In mcol
+        element = m.Value
+        res.Add(element)
+        Next
+        sTemp = DictRegex.Replace(sTemp, "").Trim()
 
-ElseIf HexDataRegex.IsMatch(sTemp) AndAlso HexDataRegex.Match(sTemp).Value = Mid(sTemp, 1, Len(HexDataRegex.Match(sTemp).Value)) Then
-mcol = HexDataRegex.Matches(sTemp)
-For Each m As Match In mcol
-element = m.Value
-res.Add(element)
-Next
-sTemp = HexDataRegex.Replace(sTemp, "").Trim()
+        ElseIf ArrayRegex.IsMatch(sTemp) AndAlso ArrayRegex.Match(sTemp).Value = Mid(sTemp, 1, Len(ArrayRegex.Match(sTemp).Value)) Then
+        mcol = ArrayRegex.Matches(sTemp)
+        For Each m As Match In mcol
+        element = m.Value
+        res.Add(element)
+        Next
+        sTemp = ArrayRegex.Replace(sTemp, "").Trim()
 
-ElseIf BooleanRegex.IsMatch(sTemp) AndAlso BooleanRegex.Match(sTemp).Value = Mid(sTemp, 1, Len(BooleanRegex.Match(sTemp).Value)) Then
-mcol = BooleanRegex.Matches(sTemp)
-For Each m As Match In mcol
-element = m.Value
-res.Add(element)
-Next
-sTemp = BooleanRegex.Replace(sTemp, "").Trim()
+        ElseIf HexDataRegex.IsMatch(sTemp) AndAlso HexDataRegex.Match(sTemp).Value = Mid(sTemp, 1, Len(HexDataRegex.Match(sTemp).Value)) Then
+        mcol = HexDataRegex.Matches(sTemp)
+        For Each m As Match In mcol
+        element = m.Value
+        res.Add(element)
+        Next
+        sTemp = HexDataRegex.Replace(sTemp, "").Trim()
 
-ElseIf IndirectReferenceRegex.IsMatch(sTemp, 0) AndAlso IndirectReferenceRegex.Match(sTemp).Value = Mid(sTemp, 1, Len(IndirectReferenceRegex.Match(sTemp).Value)) Then
-mcol = IndirectReferenceRegex.Matches(sTemp)
-For Each m As Match In mcol
-element = m.Value
-res.Add(element)
-Next
-sTemp = IndirectReferenceRegex.Replace(sTemp, "").Trim()
+        ElseIf BooleanRegex.IsMatch(sTemp) AndAlso BooleanRegex.Match(sTemp).Value = Mid(sTemp, 1, Len(BooleanRegex.Match(sTemp).Value)) Then
+        mcol = BooleanRegex.Matches(sTemp)
+        For Each m As Match In mcol
+        element = m.Value
+        res.Add(element)
+        Next
+        sTemp = BooleanRegex.Replace(sTemp, "").Trim()
 
-ElseIf NumericRegex.IsMatch(sTemp) AndAlso NumericRegex.Match(sTemp).Value = Mid(sTemp, 1, Len(NumericRegex.Match(sTemp).Value)) Then
-mcol = NumericRegex.Matches(sTemp)
-For Each m As Match In mcol
-element = m.Value
-res.Add(element)
-Next
-sTemp = NumericRegex.Replace(sTemp, "").Trim()
+        ElseIf IndirectReferenceRegex.IsMatch(sTemp, 0) AndAlso IndirectReferenceRegex.Match(sTemp).Value = Mid(sTemp, 1, Len(IndirectReferenceRegex.Match(sTemp).Value)) Then
+        mcol = IndirectReferenceRegex.Matches(sTemp)
+        For Each m As Match In mcol
+        element = m.Value
+        res.Add(element)
+        Next
+        sTemp = IndirectReferenceRegex.Replace(sTemp, "").Trim()
 
-ElseIf NameRegex.IsMatch(sTemp) AndAlso NameRegex.Match(sTemp).Value = Mid(sTemp, 1, Len(NameRegex.Match(sTemp).Value)) Then
-mcol = NameRegex.Matches(sTemp)
-For Each m As Match In mcol
-element = m.Value
-res.Add(element)
-Next
-sTemp = NameRegex.Replace(sTemp, "").Trim()
-Else
-Dim b = 1
-End If
+        ElseIf NumericRegex.IsMatch(sTemp) AndAlso NumericRegex.Match(sTemp).Value = Mid(sTemp, 1, Len(NumericRegex.Match(sTemp).Value)) Then
+        mcol = NumericRegex.Matches(sTemp)
+        For Each m As Match In mcol
+        element = m.Value
+        res.Add(element)
+        Next
+        sTemp = NumericRegex.Replace(sTemp, "").Trim()
+
+        ElseIf NameRegex.IsMatch(sTemp) AndAlso NameRegex.Match(sTemp).Value = Mid(sTemp, 1, Len(NameRegex.Match(sTemp).Value)) Then
+        mcol = NameRegex.Matches(sTemp)
+        For Each m As Match In mcol
+        element = m.Value
+        res.Add(element)
+        Next
+        sTemp = NameRegex.Replace(sTemp, "").Trim()
+        Else
+        Dim b = 1
+        End If
 
 
 
-End While
-Return res
+        End While
+        return res;
 
-End Function
+}
 
 void ProcessValue()
 {
-
-    Dim tmpStr As String
-        Dim KeyValuePairs As List(Of KeyValuePair(Of String, String))
+    std::string tmpStr;
+    std::vector<std::pair<>std::string, std::string> KeyValuePairs;
+    Value = Trim(Value);
 
         If Len(Value.Trim) >= 2 AndAlso(Mid(Value, 1, 2) = "<<" And Mid(Value, Len(Value) - 1, 2) = ">>") Then
         Type = PDFObjectType::PDF_Dictionary;
